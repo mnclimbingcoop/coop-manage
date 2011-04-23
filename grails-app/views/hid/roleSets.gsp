@@ -1,0 +1,1 @@
+<%@ page contentType="text/xml" %><g:each var="rs" in="${roleSets}"><hid:RoleSet action="UD" roleSetID="${rs.roleSetID}"><hid:Roles><hid:Role roleID="${rs.roleID}" scheduleID="${rs.scheduleID}" resourceID="${rs.resourceID}"/></hid:Roles></hid:RoleSet></g:each>
