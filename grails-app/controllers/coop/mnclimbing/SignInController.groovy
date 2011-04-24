@@ -41,8 +41,6 @@ class SignInController {
 		
 		def amPm = g.formatDate(date:signInInstance.signInDate, format:"a")
 		
-		// println "${prevDay} > signInDate > ${signInInstance.signInDate}"
-		
         [ signInInstanceList: signInInstanceList, 
 			signInInstance: signInInstance,
 			memberNames: memberNames,

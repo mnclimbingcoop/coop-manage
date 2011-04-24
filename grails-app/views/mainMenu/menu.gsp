@@ -84,6 +84,9 @@
 		  	<g:link controller="paymentType" action="list">Payment Types</g:link>
 		  </li>
 		  <li>
+			<g:link controller="dayPass" action="list">Day Passes</g:link>
+		  </li>
+		  <li>
 			<g:link controller="signIn" action="list">Sign-In Sheets</g:link>
 		  </li>
 		  <li>

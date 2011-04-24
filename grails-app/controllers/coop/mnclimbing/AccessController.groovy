@@ -10,12 +10,6 @@ class AccessController {
         redirect(action: "list", params: params)
     }
 	
-	// TODO: Daily Pass Entry
-	
-	def daily = {
-		flash.message = "TODO: Daily Pass Entry"
-	}
-
     def list = {
 
 		// Figure out total sales

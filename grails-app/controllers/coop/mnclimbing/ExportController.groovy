@@ -89,6 +89,7 @@ class ExportController {
 	def payments = {
 
 		def paymentInstanceList = Payment.list()
+		def dayPassInstanceList = DayPass.list()
 		def now = new Date()
 		def datestamp = g.formatDate(date:now, format:"yyyy-MM-dd")
 		def fileName = "payment-list-${datestamp}.csv"
@@ -121,6 +122,26 @@ class ExportController {
 			out << '"' + p.person.id + '",'
 			out << '"' + p.person.fullName + '",'
 			out << '"' + p.class.toString().replaceAll("class coop.mnclimbing.", "") + '"'
+
+			out << "\n"
+		}
+		// Append Day Passes
+		dayPassInstanceList.each{ dp ->
+			out << dp.id + ','
+			out << dp.amount + ','
+			out << dp.processingFee + ','
+			out << dp.taxFee + ','
+			out << dp.amountAfterFees + ','
+			out << '"' + dp.paymentType.name + '",'
+			out << '"' + g.formatDate(date:dp.paymentDate, format:"yyyy-MM-dd") + '",'
+			if (dp.transactionId) {
+				out << '"' + dp.transactionId + '",'
+			} else {
+				out << ","
+			}
+			out << '"' + dp.sponsor?.id + '",'
+			out << '"' + dp.name + '",'
+			out << '"' + dp.class.toString().replaceAll("class coop.mnclimbing.", "") + '"'
 
 			out << "\n"
 		}

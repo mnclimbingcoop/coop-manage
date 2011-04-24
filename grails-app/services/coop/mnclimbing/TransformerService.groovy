@@ -3,6 +3,7 @@ package coop.mnclimbing
 class TransformerService {
 
     static transactional = true
+	static debug = false
 	
 	String encodeWiegand(Integer facilityCode, Integer cardNumber) {
 				
@@ -143,6 +144,13 @@ class TransformerService {
 				credential.isCard = true
 				
 				assignedAccessCards.add(credential)
+			}
+		}
+		
+		assignedAccessCards.each{
+			if (debug) {
+				def cardHolder = Person.read(it.cardholderID)
+				println "TransformerService:generateHidEdgeProData:: (${cardHolder.fullName}) ${it.cardholderID} expires ${it.endTime}"
 			}
 		}
 		

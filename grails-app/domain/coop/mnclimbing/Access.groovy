@@ -15,6 +15,6 @@ class Access extends Payment {
 	Integer accessDuration
 	
 	static mapping = {
-		membershipDuration(min:0)
+		accessDuration(min:0)
 	}
 }
