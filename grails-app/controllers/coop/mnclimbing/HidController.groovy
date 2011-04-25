@@ -25,8 +25,8 @@ class HidController {
 	
 	// master action
 	def xml = {
-		//response.setHeader("Content-disposition", "attachment;filename=backupxml.xml")
-		response.setHeader("Content-disposition", "filename=backupxml.xml")
+		response.setHeader("Content-disposition", "attachment;filename=backupxml.xml")
+		//response.setHeader("Content-disposition", "filename=backupxml.xml")
 		
 	}
 
