@@ -37,7 +37,10 @@
                         
                             <td>${fieldValue(bean: dayPassInstance, field: "sponsor")}</td>
                         
-                            <td><g:formatDate date="${dayPassInstance.paymentDate}" format="MM/dd/yyyy" /></td>
+                            <td><g:link action="edit" id="${dayPassInstance.id}">
+                            	<g:formatDate date="${dayPassInstance.paymentDate}" format="MM/dd/yyyy" />
+                            	</g:link>
+                            </td>
                         
                         </tr>
                     </g:each>

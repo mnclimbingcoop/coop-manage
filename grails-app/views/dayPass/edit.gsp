@@ -7,6 +7,16 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'dayPass.label', default: 'DayPass')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <script>
+		$(function() {
+			$("input[name='name']").autocomplete({
+				source: ${memberNames},
+				select: function() { 
+					$("select[name='sponsor']").focus(); }
+				});
+			$("input[name='name']").focus();	
+		});
+        </script>
     </head>
     <body>
         <div class="nav">

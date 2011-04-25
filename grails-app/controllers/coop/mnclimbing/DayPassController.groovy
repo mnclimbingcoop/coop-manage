@@ -26,9 +26,21 @@ class DayPassController {
 			order("firstName")
 			order("lastName")
 		}
+
 		def memberNames = Person.list().collect{ "'${it.firstName} ${it.lastName}'" }
-        def dayPassInstance = new DayPass()
-        dayPassInstance.properties = params
+		def dayPassInstance = new DayPass()
+		dayPassInstance.properties = params
+
+		// get last day pass entered date and set that as the default date for the next one
+		c = DayPass.createCriteria()
+		def dayPassInstanceList = c.list{
+			order("passDate")
+			maxResults(1)
+		}
+		dayPassInstanceList.each{
+			dayPassInstance.passDate = it.passDate
+		}
+		
         return [dayPassInstance: dayPassInstance, 
 			sponsorList: sponsorList,
 			memberNames: memberNames ]
@@ -36,6 +48,10 @@ class DayPassController {
 
     def save = {
         def dayPassInstance = new DayPass(params)
+		
+		// purchase date is always the same as access date
+		dayPassInstance.paymentDate = dayPassInstance.passDate
+		
         if (dayPassInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'dayPass.label', default: 'DayPass'), dayPassInstance.id])}"
             redirect(action: "list", id: dayPassInstance.id)
@@ -47,12 +63,23 @@ class DayPassController {
 
     def edit = {
         def dayPassInstance = DayPass.get(params.id)
+		
+		def c = Person.createCriteria()
+		def sponsorList = c.list {
+			order("firstName")
+			order("lastName")
+		}
+
+		def memberNames = Person.list().collect{ "'${it.firstName} ${it.lastName}'" }
+		
         if (!dayPassInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'dayPass.label', default: 'DayPass'), params.id])}"
             redirect(action: "list")
         }
         else {
-            return [dayPassInstance: dayPassInstance]
+            return [dayPassInstance: dayPassInstance, 
+				sponsorList: sponsorList,
+				memberNames: memberNames ]
         }
     }
 
@@ -69,6 +96,10 @@ class DayPassController {
                 }
             }
             dayPassInstance.properties = params
+
+			// purchase date is always the same as access date
+			dayPassInstance.paymentDate = dayPassInstance.passDate
+	
             if (!dayPassInstance.hasErrors() && dayPassInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'dayPass.label', default: 'DayPass'), dayPassInstance.id])}"
                 redirect(action: "list", id: dayPassInstance.id)

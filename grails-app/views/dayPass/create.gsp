@@ -15,7 +15,6 @@
 			$("input[name='name']").focus();	
 		});
 	  </script>
-        
     </head>
     <body>
         <div class="nav">
@@ -88,15 +87,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: dayPassInstance, field: 'paymentType', 'errors')}">
                                     <g:select name="paymentType.id" from="${coop.mnclimbing.PaymentType.list()}" optionKey="id" value="${dayPassInstance?.paymentType?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="paymentDate"><g:message code="dayPass.paymentDate.label" default="Payment Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: dayPassInstance, field: 'paymentDate', 'errors')}">
-                                    <g:datePicker name="paymentDate" precision="day" value="${dayPassInstance?.paymentDate}"  />
                                 </td>
                             </tr>
                         
