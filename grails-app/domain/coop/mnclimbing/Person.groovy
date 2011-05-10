@@ -9,6 +9,8 @@ class Person {
 	String middleName
 	String lastName
 	String suffix
+	
+	String nickName
 
 	Date birthDate
 
@@ -88,9 +90,13 @@ class Person {
         if (title != null) {
             retString += title + ". "
         }
-        if (firstName != null) {
+        if (firstName) {
             retString += firstName
         }
+		if (nickName) {
+			retString += " (${nickName})"
+		}
+
         if (middleName != null) {
             if (firstName != null) {
                 if (firstName.length() == 1) {
@@ -118,6 +124,7 @@ class Person {
 		middleName(nullable:true, maxSize:20)
 		lastName(nullable:true, maxSize:30)
 		suffix(nullable:true, maxSize:10)
+		nickName(nullable:true)
 		birthDate(nullable:true)
 		address(nullable:true)
 		emailAddress(email:true)

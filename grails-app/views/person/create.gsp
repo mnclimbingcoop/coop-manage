@@ -30,7 +30,7 @@
 		<g:renderErrors bean="${personInstance}" as="list" />
 	  </div>
 	</g:hasErrors>
-	<g:form action="save" >
+	<g:form action="save" autocomplete="off">
 	  <div class="dialog">
 
 		<div id="tabs">

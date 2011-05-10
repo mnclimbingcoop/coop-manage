@@ -2,7 +2,7 @@ package coop.mnclimbing
 
 class DayPassController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [list:['GET', 'POST'], save: "POST", update: "POST", delete: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -15,30 +15,56 @@ class DayPassController {
 		}
 		params.max = 50
 
-		def dayPassInstanceList = DayPass.list(params)
+		def dayPassEndDate = new Date()
+		def maxPasses = 20
 		
-        [dayPassInstanceList: dayPassInstanceList, dayPassInstanceTotal: DayPass.count()]
+		if (params?.dayPassEndDate) {
+			dayPassEndDate = params.dayPassEndDate
+			println "End Date: ${dayPassEndDate}"
+		}
+		if (params?.maxPasses){
+			maxPasses = Integer.parseInt(params.maxPasses)
+		}
+		
+
+		def dayPassInstanceList = DayPass.createCriteria().list{
+			lt("passDate", dayPassEndDate)
+			order("passDate")
+			maxResults(maxPasses)
+		}
+		
+        [dayPassInstanceList: dayPassInstanceList, 
+			dayPassEndDate: dayPassEndDate,
+			maxPasses: maxPasses]
     }
 
     def create = {
-		def c = Person.createCriteria()
-		def sponsorList = c.list {
+		def sponsorList = Person.createCriteria().list {
 			order("firstName")
 			order("lastName")
 		}
 
 		def memberNames = Person.list().collect{ "'${it.firstName} ${it.lastName}'" }
 		def dayPassInstance = new DayPass()
+		def dpi = null
 		dayPassInstance.properties = params
-
-		// get last day pass entered date and set that as the default date for the next one
-		c = DayPass.createCriteria()
-		def dayPassInstanceList = c.list{
-			order("passDate")
-			maxResults(1)
+		
+		if (params.id) {
+			dpi = DayPass.read(params.id)
 		}
-		dayPassInstanceList.each{
-			dayPassInstance.passDate = it.passDate
+
+		if (dpi) {
+			// use the date from the previous pass
+			dayPassInstance?.passDate = dpi.passDate
+		} else {
+			// get last day pass entered date and set that as the default date for the next one
+			def dayPassInstanceList = DayPass.createCriteria().list{
+				order("passDate")
+				maxResults(1)
+			}
+			dayPassInstanceList.each{
+				dayPassInstance.passDate = it.passDate
+			}
 		}
 		
         return [dayPassInstance: dayPassInstance, 
@@ -54,7 +80,7 @@ class DayPassController {
 		
         if (dayPassInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'dayPass.label', default: 'DayPass'), dayPassInstance.id])}"
-            redirect(action: "list", id: dayPassInstance.id)
+            redirect(action: "create", id: dayPassInstance.id)
         }
         else {
             render(view: "create", model: [dayPassInstance: dayPassInstance])

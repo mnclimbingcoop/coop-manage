@@ -176,6 +176,9 @@
 			<g:link controller="export" action="signIn">Export All Sign-In Data</g:link>
 		  </li>
 		  <li>
+			<g:link controller="export" action="cars">Export Car Data</g:link>
+		  </li>
+		  <li>
 		  <g:link controller="hid" action="xml">Download HID EdgePro XML data file</g:link> (backupxml.xml)
 		  </li>
 		  <li>
@@ -183,6 +186,15 @@
 		  </li>
 		</ul>
 
+		<h2 style="color:#dfd;">Door Control (only works at the coop)</h2>
+		<ul>
+		  <li>
+			<a href="https://10.19.4.130/html/en_EN/EdgeSolo.html">Gym Door</a>
+		  </li>
+		  <li>
+			<a href="https://10.19.4.129/html/en_EN/EdgeSolo.html">External Door</a>
+		  </li>
+		</ul>
 
 		<br/>
 	  </div>

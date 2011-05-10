@@ -6,6 +6,15 @@
 
 	<tr class="prop">
 	  <td valign="top" class="name">
+		<label for="nickName">Nick Name (optional)</label>
+	  </td>
+	  <td valign="top" class="name">
+		<g:textField name="nickName" size="20" maxlength="30" value="${personInstance?.nickName}" />
+	  </td>
+	</tr>
+
+	<tr class="prop">
+	  <td valign="top" class="name">
 		<label for="title"><g:message code="person.title.label" default="Title" /></label>
 	  </td>
 	  <td valign="top" class="name">
@@ -20,7 +29,6 @@
 	  <td valign="top" class="name">
 		<label for="suffix"><g:message code="person.suffix.label" default="Suffix" /></label>
 	  </td>
-
 	</tr>
 
 	<tr class="prop">

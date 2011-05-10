@@ -11,9 +11,8 @@ class AutomobileController {
         redirect(action: "list", params: params)
     }
 
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [automobileInstanceList: Automobile.list(params), automobileInstanceTotal: Automobile.count()]
+    def list = {        
+        [automobileInstanceList: Automobile.list(params)]
     }
 
     def create = {

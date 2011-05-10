@@ -221,4 +221,39 @@ class ExportController {
 		out.flush()
 		out.close()
 	}
+	
+	def cars = {
+		def carList = Automobile.list()
+		def now = new Date()
+		def datestamp = g.formatDate(date:now, format:"yyyy-MM-dd")
+		def fileName = "car-list-${datestamp}.csv"
+
+		response.setHeader("Content-disposition", "attachment; filename=${fileName}")
+		response.contentType = "application/vnd.ms-excel"
+
+		def out = response.outputStream
+
+		out << '"member id","owner","phone number"'
+		out << ',"email address","license plate #"'
+		out << ',"state","year","make","model","color"'
+		out << "\n"
+
+		
+		
+		carList.each{ c ->
+			out << c.person.id + ','
+			out << c.person.fullName + ','
+			out << c.person?.phoneNumber + ','
+			out << c.person?.emailAddress + ','
+			out << c.licencePlateNumber + ','
+			out << c.licencePlateState + ','
+			out << c.year + ','
+			out << c.make + ','
+			out << c.model + ','
+			out << c.color
+			out << "\n"
+		}
+		out.flush()
+		out.close()
+	}
 }

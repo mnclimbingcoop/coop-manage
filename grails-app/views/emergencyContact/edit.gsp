@@ -22,7 +22,7 @@
                 <g:renderErrors bean="${emergencyContactInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form method="post" >
+            <g:form method="post" autocomplete="off" >
                 <g:hiddenField name="id" value="${emergencyContactInstance?.id}" />
                 <g:hiddenField name="version" value="${emergencyContactInstance?.version}" />
                 <div class="dialog">

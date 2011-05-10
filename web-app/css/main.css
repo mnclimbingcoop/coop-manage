@@ -280,6 +280,23 @@ fieldset {
     -webkit-border-radius: 0.5em;
 }
 
+.searchResult {
+	border-style: solid;
+	border-width: 2px;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0.25em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+    float:left;
+    white-space:nowrap;
+    margin-right: 0.5em;
+}
+
+.searchResult:hover {
+	background-color: lightgreen;
+}
+
 .filterField {
 	font-size: 16px;
 	float: right;

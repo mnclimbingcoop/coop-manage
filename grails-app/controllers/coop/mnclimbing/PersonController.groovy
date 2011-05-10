@@ -58,7 +58,7 @@ class PersonController {
 					ilike("firstName", "%${searchString}%")
 					ilike("lastName", "%${searchString}%")
 				}
-				maxResults(10)
+				maxResults(20)
 			}
 		}
 

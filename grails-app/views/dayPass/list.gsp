@@ -14,8 +14,16 @@
         <div class="body">
             <h1>Day Passes</h1>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+           	<div class="message">${flash.message}</div>
             </g:if>
+            <g:form action="list">
+            	<label for="maxPasses">Show</label>
+            	<g:select name="maxPasses" value="${maxPasses}" from="${ [20,50,100] }" />
+
+            	<label for="dayPassEndDate">Passes Ending</label>
+            	<g:datePicker name="dayPassEndDate" value="${dayPassEndDate}" precision="day" />
+            	<g:submitButton name="changeDate" value="Change" />
+            </g:form>
             <div class="list">
                 <table>
                     <thead>

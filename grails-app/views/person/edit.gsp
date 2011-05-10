@@ -60,7 +60,7 @@
 		<g:renderErrors bean="${personInstance}" as="list" />
 	  </div>
 	</g:hasErrors>
-	<g:form method="post" >
+	<g:form method="post" autocomplete="off" >
 	  <g:hiddenField name="id" value="${personInstance?.id}" />
 	  <g:hiddenField name="version" value="${personInstance?.version}" />
 

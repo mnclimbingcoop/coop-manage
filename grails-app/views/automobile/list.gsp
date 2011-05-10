@@ -12,7 +12,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>MN Climbing Coop - Car List</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -23,6 +23,10 @@
                         
                             <g:sortableColumn property="person" title="Owner" />
                         
+                        	<th>Phone #</th>
+                        
+                        	<th>email</th>
+
                             <g:sortableColumn property="licencePlateNumber" title="${message(code: 'automobile.licencePlateNumber.label', default: 'Plate #')}" />
                         
                             <g:sortableColumn property="licencePlateState" title="${message(code: 'automobile.licencePlateState.label', default: 'State')}" />
@@ -42,6 +46,10 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td><g:link controller="person" action="show" id="${automobileInstance.person.id}" target="tab-cars">${fieldValue(bean: automobileInstance, field: "person")}</g:link></td>
+                            
+                            <td>${automobileInstance.person?.phoneNumber}</td>
+                            
+                            <td>${automobileInstance.person?.emailAddress}</td>
                         
                             <td>${fieldValue(bean: automobileInstance, field: "licencePlateNumber")}</td>
                         
@@ -59,9 +67,6 @@
                     </g:each>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${automobileInstanceTotal}" />
             </div>
         </div>
     </body>

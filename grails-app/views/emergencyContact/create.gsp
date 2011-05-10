@@ -1,5 +1,3 @@
-
-
 <%@ page import="coop.mnclimbing.EmergencyContact" %>
 <html>
   <head>
@@ -23,11 +21,9 @@
 		<g:renderErrors bean="${emergencyContactInstance}" as="list" />
 	  </div>
 	</g:hasErrors>
-	<g:form action="save" >
+	<g:form action="save" autocomplete="off" >
 	  <div class="dialog">
-
 		<g:include action="form" model="${[personInstance:personInstance, addressInstance:addressInstance ]}" ></g:include>
-
 	  </div>
 	  <div class="buttons">
 		<span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
