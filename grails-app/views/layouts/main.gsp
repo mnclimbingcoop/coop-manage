@@ -12,7 +12,7 @@
   <div id="spinner" class="spinner" style="display:none;">
 	<img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
   </div>
-  <div id="coopLogo"><img src="${resource(dir:'images',file:'mnclimbingcoop-web-background.png')}" alt="Minnesota Climbing Cooperative" border="0" /></div>
+  <div id="coopLogo"><img src="${resource(dir:'images',file:'mncc-logo.gif')}" alt="Minnesota Climbing Cooperative" border="0" /></div>
 <g:layoutBody />
 </body>
 </html>

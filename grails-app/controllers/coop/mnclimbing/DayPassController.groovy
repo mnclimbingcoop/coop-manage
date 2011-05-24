@@ -1,5 +1,7 @@
 package coop.mnclimbing
 
+import org.joda.time.*
+
 class DayPassController {
 
     static allowedMethods = [list:['GET', 'POST'], save: "POST", update: "POST", delete: "POST"]
@@ -9,36 +11,73 @@ class DayPassController {
     }
 
     def list = {
-		if (! params?.sort ) {
-			params.sort = "passDate"
-			params.order = "desc"
-		}
-		params.max = 50
+		
+		def daySpan = 20
 
 		def dayPassEndDate = new Date()
-		def maxPasses = 20
+		def dayPassStartDate = dayPassEndDate - (daySpan * 2)
+		def midnight = new LocalTime(0,0)
+		def today = new Date()
+		def dayPassHistogram = []
 		
+		if (params?.dayPassRefDate) {
+			def dayPassRefDate = ( new LocalDate(params.dayPassEndDate) ).toDateTime(midnight).toCalendar().time
+			dayPassStartDate = dayPassRefDate - daySpan
+			dayPassEndDate = dayPassRefDate + daySpan
+		}
 		if (params?.dayPassEndDate) {
-			dayPassEndDate = params.dayPassEndDate
+			dayPassEndDate = ( new LocalDate(params.dayPassEndDate) ).toDateTime(midnight).toCalendar().time
 			println "End Date: ${dayPassEndDate}"
 		}
-		if (params?.maxPasses){
-			maxPasses = Integer.parseInt(params.maxPasses)
+		if (params?.dayPassStartDate) {
+			dayPassStartDate = ( new LocalDate(params.dayPassStartDate) ).toDateTime(midnight).toCalendar().time
+			println "Start Date: ${dayPassStartDate}"
+		} else {
+			dayPassStartDate = dayPassEndDate - (daySpan * 2)
 		}
 		
-
+		if (dayPassStartDate > dayPassEndDate) {
+			dayPassStartDate = dayPassEndDate - (daySpan * 2)
+		}
+		
+		// shift the range if the end date is in the future
+		if (dayPassEndDate > today) {
+			dayPassStartDate = dayPassStartDate - (dayPassEndDate - today)
+			dayPassEndDate = today
+		}
+		
+		
 		def dayPassInstanceList = DayPass.createCriteria().list{
+			gt("passDate", dayPassStartDate)
 			lt("passDate", dayPassEndDate)
 			order("passDate")
-			maxResults(maxPasses)
 		}
 		
-        [dayPassInstanceList: dayPassInstanceList, 
+		def cursorDate = dayPassStartDate
+		while (cursorDate <= dayPassEndDate) {
+			def prevDay = cursorDate - 1
+			def matchingPasses = DayPass.findAllByPassDateBetween(prevDay, cursorDate)
+			def passCount = 0
+			matchingPasses.each{
+				passCount++
+			}
+			dayPassHistogram.add([date: cursorDate, count:passCount])
+			
+			cursorDate++
+		}
+		
+        [dayPassInstanceList: dayPassInstanceList,
+			dayPassStartDate: dayPassStartDate,
 			dayPassEndDate: dayPassEndDate,
-			maxPasses: maxPasses]
+			dayPassHistogram: dayPassHistogram ]
     }
 
     def create = {
+		
+		def jodaToday = new LocalDate()		
+		def yearRange = (2010..jodaToday.year)
+		
+		// list of members
 		def sponsorList = Person.createCriteria().list {
 			order("firstName")
 			order("lastName")
@@ -59,7 +98,7 @@ class DayPassController {
 		} else {
 			// get last day pass entered date and set that as the default date for the next one
 			def dayPassInstanceList = DayPass.createCriteria().list{
-				order("passDate")
+				order("passDate", "desc")
 				maxResults(1)
 			}
 			dayPassInstanceList.each{
@@ -69,7 +108,8 @@ class DayPassController {
 		
         return [dayPassInstance: dayPassInstance, 
 			sponsorList: sponsorList,
-			memberNames: memberNames ]
+			memberNames: memberNames,
+			yearRange: yearRange ]
     }
 
     def save = {
@@ -105,7 +145,8 @@ class DayPassController {
         else {
             return [dayPassInstance: dayPassInstance, 
 				sponsorList: sponsorList,
-				memberNames: memberNames ]
+				memberNames: memberNames,
+				yearRange: yearRange ]
         }
     }
 

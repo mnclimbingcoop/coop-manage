@@ -5,6 +5,36 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'dayPass.label', default: 'DayPass')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <style type="text/css">
+        #passHistogram { 
+            background-color: #FDD;
+            } 
+        .startDate {
+        	display:inline;
+        	max-width: 20px;
+        }
+        .endDate {
+        	display:inline;
+        	max-width: 20px;
+        }
+        #hoverDate {
+        	width: 12em;
+        	float: left;
+        	clear: both;
+        }
+        </style>
+        <script>
+		$(function() {
+			$("#passHistogram").hover(function(){
+				$("#hoverDate").text('');
+			});		
+			
+			$("img.dateBar").hover(function(){
+				var theDate = $(this).attr('alt');
+				$("#hoverDate").text(theDate);
+			});		
+		});
+		</script>
     </head>
     <body>
         <div class="nav">
@@ -16,14 +46,17 @@
             <g:if test="${flash.message}">
            	<div class="message">${flash.message}</div>
             </g:if>
-            <g:form action="list">
-            	<label for="maxPasses">Show</label>
-            	<g:select name="maxPasses" value="${maxPasses}" from="${ [20,50,100] }" />
-
-            	<label for="dayPassEndDate">Passes Ending</label>
-            	<g:datePicker name="dayPassEndDate" value="${dayPassEndDate}" precision="day" />
-            	<g:submitButton name="changeDate" value="Change" />
-            </g:form>
+            Histogram from <g:formatDate date="${dayPassStartDate}" format="MM/dd/yyyy" />
+            to <g:formatDate date="${dayPassEndDate}" format="MM/dd/yyyy" />
+            
+            <div id="passHistogram">
+            	<div id="hoverDate"></div><br/>
+            	<g:each var="d" in="${dayPassHistogram}">
+            	<g:link action="list" params="${[dayPassRefDate:formatDate(date:d.date, format:'yyyy-MM-dd')]}" title="${formatDate(date:d.date, format:'yyyy-MM-dd')}">
+            	<img class="dateBar" src="${resource(dir:'images',file:'orange1px.gif')}" width="5px" height="${d.count * 2	}" alt="${formatDate(date:d.date, format:'yyyy-MM-dd')}" style="margin-right:1px;" />
+            	</g:link>
+            	</g:each>
+            </div>
             <div class="list">
                 <table>
                     <thead>
