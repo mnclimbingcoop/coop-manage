@@ -63,7 +63,7 @@
                                   <label for="returnDate"><g:message code="accessCardAssignment.returnDate.label" default="Return Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: accessCardAssignmentInstance, field: 'returnDate', 'errors')}">
-                                    <g:datePicker name="returnDate" precision="day" value="${accessCardAssignmentInstance?.returnDate}" noSelection="['': '']" />
+                                    <g:datePicker name="returnDate" precision="day" default="none" value="${accessCardAssignmentInstance?.returnDate}" noSelection="['': '']" />
                                 </td>
                             </tr>
                         

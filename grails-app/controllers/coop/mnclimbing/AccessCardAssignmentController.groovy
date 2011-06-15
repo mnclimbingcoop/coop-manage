@@ -39,20 +39,28 @@ class AccessCardAssignmentController {
 	}
 	
     def create = {
+		// Find all cards that are not lost
+		def unassignedAccessCardInstanceList = AccessCard.createCriteria().list {
+			eq("lost", false)
+		}
 		
-		def c = AccessCard.createCriteria()
-		def unassignedAccessCardInstanceList = c.list {
-			and {
-				eq("lost", false)
-				assignments {
-					isNull("id")
+		// find assigned cards
+		def assignedAccessCardInstanceList = AccessCard.createCriteria().list {
+			assignments {
+				and {
+					isNull("returnDate")
+					eq("lost", false)
 				}
 			}
 		}
-
 		
+		assignedAccessCardInstanceList.each{
+			unassignedAccessCardInstanceList.remove(it)
+		}
+				
         def accessCardAssignmentInstance = new AccessCardAssignment()
         accessCardAssignmentInstance.properties = params
+		
         return [accessCardAssignmentInstance: accessCardAssignmentInstance,
 			unassignedAccessCardInstanceList: unassignedAccessCardInstanceList ]
     }
