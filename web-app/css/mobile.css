@@ -21,8 +21,9 @@ body {
     color: #333;
     font: 2.0em verdana, arial, helvetica, sans-serif;
 }
-#grailsLogo {
+#coopLogo {
 	padding:20px;
+	background-color: orange;
 }
 
 a:link, a:visited, a:hover {
@@ -32,19 +33,19 @@ a:link, a:visited, a:hover {
 }
 
 h1 {
-    color: #48802c;
+    color: orange;
     font-weight: normal;
     font-size: 2em;
 }
 
 h2 {
-    /* color: #48802c; */
+    /* color: orange; */
     font-weight: normal;
     font-size: 1.8em;
 }
 
 h3 {
-    /* color: #48802c; */
+    /* color: orange; */
     font-weight: normal;
     font-size: 1.5em;
 }

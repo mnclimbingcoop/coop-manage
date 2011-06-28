@@ -9,7 +9,7 @@
 	  <div style="float:right;"><g:link controller="logout" action="index" style="color:#FAA;">Logout</g:link></div>
 	  <div id="mainMenu" class="ui-widget ui-widget-content ui-corner-all">
 
-		<h2 style="color:#dfd;">Enter / Update Data</h2>
+		<h2>Enter / Update Data</h2>
 		<ul>
 		  <li>
 		  <g:link controller="person" action="list">Manage People</g:link>
@@ -29,7 +29,7 @@
 		</ul>
 
 
-		<h2 style="color:#dfd;">Membership Reports</h2>
+		<h2>Membership Reports</h2>
 		<ul>
 		  <li>
 			<g:link controller="membership" action="list">Members</g:link>
@@ -44,7 +44,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Access Reports</h2>
+		<h2>Access Reports</h2>
 		<ul>
 		  <li>
 			<g:link controller="access" action="list">All Passes</g:link>
@@ -72,7 +72,7 @@
 
 		</ul>
 
-		<h2 style="color:#dfd;">Form Reports</h2>
+		<h2>Form Reports</h2>
 		<ul>
 		  <li>
 		  <g:link controller="instrument" action="show" id="1">Need to sign Membership Agreement</g:link>
@@ -82,7 +82,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Financial Reports</h2>
+		<h2>Financial Reports</h2>
 		<ul>
 		  <li>
 		  	<g:link controller="stock" action="list">List All Stock Purchases</g:link>
