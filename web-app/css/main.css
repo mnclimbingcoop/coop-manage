@@ -26,6 +26,9 @@ a:link, a:visited, a:hover {
     text-decoration: none;
 }
 
+a.faded {
+	color: #BBB;
+}
 #coopLogo {
 	background-color: orange;
 }

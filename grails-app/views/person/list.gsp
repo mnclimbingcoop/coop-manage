@@ -34,54 +34,66 @@
             	<ul>
             		<g:each in="${personInstanceList}" status="i" var="personInstance">
             		<li>
-            			<g:link action="edit" id="${personInstance.id}">
             			<!-- Name -->
             			<div class="title">
-            				<span class="memberId">#${fieldValue(bean: personInstance, field: "id")}</span>:
-            				<span class="fullName">${fieldValue(bean: personInstance, field: "fullName")}</span><br/>
+            				<g:link action="edit" id="${personInstance.id}"><span class="memberId">#${fieldValue(bean: personInstance, field: "id")}</span>:
+            				<span class="fullName">${fieldValue(bean: personInstance, field: "fullName")}</span></g:link><br/>
             			</div>
             			<!-- Membership -->
             			<strong>Membership:</strong>
             			<g:if test="${ ! personInstance.memberships }">
-            				<span class="flag">Not a Member</span>
+            				<g:link action="edit" id="${personInstance.id}"><span class="flag">Not a Member</span></g:link>
             			</g:if>
             			<g:else>
 							<g:each in="${personInstance.memberships}" status="j" var="membershipInstance">
-							Member since <g:formatDate date="${membershipInstance.membershipFrom}" format="yyyy-MM-dd" />
+							<g:link action="edit" id="${personInstance.id}">
+								Member since <g:formatDate date="${membershipInstance.membershipFrom}" format="yyyy-MM-dd" />
+							</g:link>
 							</g:each>
             			</g:else><br/>
             			<!-- Access -->
             			<strong>Access:</strong>
             			<g:if test="${personInstance.activePass}">
+            				<g:link action="edit" id="${personInstance.id}">
 							${personInstance.activePass.accessType.name} pass
 							expires
 							<g:formatDate date="${personInstance.activePass.endDate}" format="yyyy-MM-dd" />
+							</g:link>
 						</g:if>
 						<g:else>
+							<g:link action="edit" id="${personInstance.id}">
 							<span class="flag">None</span>
+							</g:link>
 						</g:else><br/>
             			<!-- Card -->
             			<strong>Card:</strong>
 	          			<g:if test="${personInstance.accessCardAssignment}">
+	          				<g:link action="edit" id="${personInstance.id}">
 	          				<g:if test="${personInstance.accessCardAssignment.accessCard.facilityAssigned}">MNCC Card ${personInstance.accessCardAssignment.accessCard.label}</g:if>
 	          				<g:else>Personnal Card</g:else>
 							issued
 							<g:formatDate date="${personInstance.accessCardAssignment.issueDate}" format="yyyy-MM-dd" />
+							</g:link>
 						</g:if>
 						<g:else>
+							<g:link action="edit" id="${personInstance.id}">
 							<span class="flag">None</span>
+							</g:link>
 						</g:else><br/>
             			<!-- Email -->
             			<strong>Email:</strong>
             			<span class="email">
             			<g:if test="${! personInstance.emailAddress }">
+            				<g:link action="edit" id="${personInstance.id}">
             				<span class="flag">No email on file</span>
+            				</g:link>
             			</g:if>
             			<g:else>
-            			${fieldValue(bean: personInstance, field: "emailAddress")}
+            				<g:link action="edit" id="${personInstance.id}">
+            				${fieldValue(bean: personInstance, field: "emailAddress")}
+            				</g:link>
             			</g:else>
             			</span>
-            			</g:link>
             		</li>
             		</g:each>
             	</ul>
