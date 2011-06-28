@@ -121,7 +121,12 @@ class ExportController {
 			}
 			out << '"' + p.person.id + '",'
 			out << '"' + p.person.fullName + '",'
-			out << '"' + p.class.toString().replaceAll("class coop.mnclimbing.", "") + '"'
+			def className = p.class.toString().replaceAll("class coop.mnclimbing.", "")
+			if (className == 'Access') {
+				def accessInstance = Access.read(p.id)
+				className += '.' + accessInstance.accessType
+			}
+			out << '"' + className + '"'
 
 			out << "\n"
 		}
@@ -198,7 +203,7 @@ class ExportController {
 		def signInList = SignIn.list()
 		def now = new Date()
 		def datestamp = g.formatDate(date:now, format:"yyyy-MM-dd")
-		def fileName = "purchase-list-${datestamp}.csv"
+		def fileName = "signin-list-${datestamp}.csv"
 
 		response.setHeader("Content-disposition", "attachment; filename=${fileName}")
 		response.contentType = "application/vnd.ms-excel"

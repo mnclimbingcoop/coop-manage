@@ -12,7 +12,7 @@ html * {
 }
 
 body {
-    background: #fff;
+    /* background: #fff; */
     color: #333;
     font: 1.0em verdana, arial, helvetica, sans-serif;
 }
@@ -26,20 +26,24 @@ a:link, a:visited, a:hover {
     text-decoration: none;
 }
 
+#coopLogo {
+	background-color: orange;
+}
+
 h1 {
-    color: #48802c;
+    color: darkorange;
     font-weight: normal;
     font-size: 2em;
 }
 
 h2 {
-    /* color: #48802c; */
+    color: darkorange;
     font-weight: normal;
     font-size: 1.8em;
 }
 
 h3 {
-    /* color: #48802c; */
+    color: darkorange;
     font-weight: normal;
     font-size: 1.5em;
 }
@@ -315,4 +319,53 @@ fieldset {
 .searchResults {
 	border-style: solid;
 	border-width: thin;
+}
+
+div.element-list ul {
+	list-style: none;
+	padding-left: 0;
+}
+div.element-list ul li {
+	border: thin solid orange;
+	-moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-right: 5px;
+	padding: 0.25em;
+    white-space:nowrap;
+    width: 400px;
+    overflow: none;
+	float:left;	
+}
+
+div.element-list ul li:hover {
+	background-color: #FEEEBD;
+}
+
+div.element-list ul li a {
+	font-weight: normal;
+}
+.memberId {
+	font-weight: bold;
+}
+
+div.element-list .title {
+	color: white;
+	background-color: orange;
+}
+
+div.element-list .flag {
+	padding-left: 25px;
+	padding-right: 5px;
+    background: #FEE url(../images/skin/flag.png) 5px 50% no-repeat;
+	color: red;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 0.9em;
+	
+}
+
+fieldset table {
+	border: none;
 }

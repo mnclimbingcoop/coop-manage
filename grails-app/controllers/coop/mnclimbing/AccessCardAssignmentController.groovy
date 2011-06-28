@@ -53,7 +53,7 @@ class AccessCardAssignmentController {
 				}
 			}
 		}
-		
+				
 		assignedAccessCardInstanceList.each{
 			unassignedAccessCardInstanceList.remove(it)
 		}

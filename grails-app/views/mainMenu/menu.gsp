@@ -8,8 +8,16 @@
 		margin-top:20px;
 		margin-left:30px;
 		width:228px;
-		float:left;
-
+		float:right;
+		position: absolute;
+		right: 40px;
+		top: 15em;
+		background-color: white;
+		border: orange thin solid;
+		opacity: 0.8;
+	  }
+	  #searchDiv {
+	  	max-width: 650px;
 	  }
 	  .homePagePanel * {
 		margin:0px;
@@ -19,9 +27,15 @@
 		margin-bottom:10px;
 	  }
 	  .homePagePanel .panelBody h1 {
+	  	color: darkorange;
 		text-transform:uppercase;
 		font-size:1.1em;
 		margin-bottom:10px;
+	  }
+	  #logoutLink {
+	  	float:right;
+	  	padding-top: 0.5em;
+	  	padding-right: 1em;
 	  }
 	  .homePagePanel .panelBody {
 		background: url(images/leftnav_midstretch.png) repeat-y top;
@@ -40,15 +54,22 @@
 		margin:0px;
 	  }
 	  h2 {
+		padding-left: 0.5em;
+		color: orange;
 		margin-top:15px;
 		margin-bottom:15px;
 		font-size:1.2em;
 	  }
 	  #pageBody {
-		margin-left:280px;
+		margin-left:20px;
 		margin-right:20px;
 	  }
 	</style>
+	<script>
+	$(function() {
+		$("input[name='id']").focus();		
+	});
+	</script>
   </head>
   <body>
 	<div id="nav">
@@ -68,11 +89,15 @@
 	  </div>
 	</div>
 	<div id="pageBody">
-	  <h1>Minnesota Climbing Cooperative</h1>
-	  <div style="float:right;"><g:link controller="logout" action="index" style="color:#FAA;">Logout</g:link></div>
+	  <h1>
+	  	Minnesota Climbing Cooperative
+	  	<g:remoteField autocomplete="off" class="filterField" name="id" controller="person" action="find" update="searchDiv" />
+	  </h1>
+	  <div id="searchDiv"></div>
+	  <div id="logoutLink"><g:link controller="logout" action="index" style="color:#FAA;">Logout</g:link></div>
 	  <div id="mainMenu" class="ui-widget ui-widget-content ui-corner-all">
 
-		<h2 style="color:#dfd;">Enter / Update Data</h2>
+		<h2>Enter / Update Data</h2>
 		<ul>
 		  <li>
 		  <g:link controller="person" action="list">Manage People</g:link>
@@ -98,7 +123,7 @@
 		</ul>
 
 
-		<h2 style="color:#dfd;">Membership Reports</h2>
+		<h2>Membership Reports</h2>
 		<ul>
 		  <li>
 			<g:link controller="membership" action="list">Members</g:link>
@@ -113,7 +138,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Access Reports</h2>
+		<h2>Access Reports</h2>
 		<ul>
 		  <li>
 			<g:link controller="access" action="list">All Passes</g:link>
@@ -141,7 +166,7 @@
 
 		</ul>
 
-		<h2 style="color:#dfd;">Form Reports</h2>
+		<h2>Form Reports</h2>
 		<ul>
 		  <li>
 		  <g:link controller="instrument" action="show" id="1">Need to sign Membership Agreement</g:link>
@@ -151,7 +176,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Financial Reports</h2>
+		<h2>Financial Reports</h2>
 		<ul>
 		  <li>
 		  	<g:link controller="stock" action="list">List All Stock Purchases</g:link>
@@ -161,7 +186,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Data Export</h2>
+		<h2>Data Export</h2>
 		<ul>
 		  <li>
 			<g:link controller="export" action="contacts">Export All Contacts</g:link>
@@ -186,7 +211,7 @@
 		  </li>
 		</ul>
 
-		<h2 style="color:#dfd;">Door Control (only works at the coop)</h2>
+		<h2>Door Control (only works at the coop)</h2>
 		<ul>
 		  <li>
 			<a href="https://10.19.4.130/html/en_EN/EdgeSolo.html">Gym Door</a>

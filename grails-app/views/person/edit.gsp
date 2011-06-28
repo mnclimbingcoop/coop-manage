@@ -11,9 +11,6 @@
 		$("input[name='id']").focus();		
 	});
   </script>
-  <style>
-	body { color: #fff; }
-  </style>
 </head>
 <body>
   <div class="nav">
@@ -42,7 +39,7 @@
 	<div class="ui-widget ui-widget-content ui-corner-all">
 	  <g:if test="${personInstance.user}">
 		<h2>Username: ${personInstance.user.username}</h2>
-		<p><g:link controller="user" action="edit" id="${personInstance.user.id}">Edit Account</g:link></p>
+		<p style="padding-left: 0.5em;"><g:link controller="user" action="edit" id="${personInstance.user.id}">Edit Account</g:link></p>
 	  </g:if>
 	  <g:else>
 		<h2>No system account</h2>

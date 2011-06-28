@@ -190,22 +190,23 @@ class BootStrap {
 		environments {
 			development {
 				
-				def fourthAddress = new Address(address1:"1131 4th St NE",
-					city:"Minneapolis", state:"MN", zipcode:"55413").save()
-
-				def adamsAddress = new Address(address1:"1519 Adams St NE Unit 3",
-					city:"Minneapolis", state:"MN", zipcode:"55413").save()
-
-				def lizHorn = new Person(title:"Ms", firstName:"Elizabeth",
-					middleName:"", lastName:"Horn", address:fourthAddress,
-					emailAddress:"liz.mpls@gmail.com",
-					phoneNumber:"612-987-4863").save()
-
-				def jacobGerber = new Person(title:"Mr", firstName:"Jacob",
-					middleName:"A", lastName:"Gerber", address:adamsAddress,
-					emailAddress:"jacob@jacobagerber.com",
-					phoneNumber:"612-518-3956").save()
-			
+				if (false) {
+					def fourthAddress = new Address(address1:"1131 4th St NE",
+						city:"Minneapolis", state:"MN", zipcode:"55413").save()
+	
+					def adamsAddress = new Address(address1:"1519 Adams St NE Unit 3",
+						city:"Minneapolis", state:"MN", zipcode:"55413").save()
+	
+					def lizHorn = new Person(title:"Ms", firstName:"Elizabeth",
+						middleName:"", lastName:"Horn", address:fourthAddress,
+						emailAddress:"liz.mpls@gmail.com",
+						phoneNumber:"612-987-4863").save()
+	
+					def jacobGerber = new Person(title:"Mr", firstName:"Jacob",
+						middleName:"A", lastName:"Gerber", address:adamsAddress,
+						emailAddress:"jacob@jacobagerber.com",
+						phoneNumber:"612-518-3956").save()
+				}
 				
 			}
 		}

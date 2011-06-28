@@ -20,6 +20,36 @@ class AccessCardController {
         [accessCardInstanceList: AccessCard.list(params), accessCardInstanceTotal: AccessCard.count()]
     }
 
+	def unassigned = {
+		// Find all cards that are not lost
+		def unassignedAccessCardInstanceList = AccessCard.createCriteria().list {
+			eq("lost", false)
+		}
+		
+		// find assigned cards
+		def assignedAccessCardInstanceList = AccessCard.createCriteria().list {
+			assignments {
+				and {
+					isNull("returnDate")
+					eq("lost", false)
+				}
+			}
+		}
+				
+		assignedAccessCardInstanceList.each{
+			unassignedAccessCardInstanceList.remove(it)
+		}
+		
+        params.max = 100
+		def model = [accessCardInstanceList: unassignedAccessCardInstanceList, 
+			accessCardInstanceTotal: unassignedAccessCardInstanceList.size()]
+		
+		flash.message = "Unassigned access cards"
+		
+		render(view:'list', model:model, params:params)
+
+	}
+	
 	def find = {
 		def searchString = params.id
 

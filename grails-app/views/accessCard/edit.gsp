@@ -60,8 +60,8 @@
                                 <td valign="top" class="name">
                                     <label for="facilityAssigned">Was this provided by us?</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: accessCardAssignmentInstance, field: 'facilityAssigned', 'errors')}">
-                                    <g:checkBox name="facilityAssigned" value="${accessCardAssignmentInstance?.facilityAssigned}" />
+                                <td valign="top" class="value ${hasErrors(bean: accessCardInstance, field: 'facilityAssigned', 'errors')}">
+                                    <g:checkBox name="facilityAssigned" value="${accessCardInstance?.facilityAssigned}" />
                                 </td>
                             </tr>  
                             
@@ -69,8 +69,8 @@
                                 <td valign="top" class="name">
                                     <label for="lost">Lost?</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: accessCardAssignmentInstance, field: 'lost', 'errors')}">
-                                    <g:checkBox name="lost" value="${accessCardAssignmentInstance?.lost}" />
+                                <td valign="top" class="value ${hasErrors(bean: accessCardInstance, field: 'lost', 'errors')}">
+                                    <g:checkBox name="lost" value="${accessCardInstance?.lost}" />
                                 </td>
                             </tr>
 
@@ -79,7 +79,14 @@
 
 <ul>
 <g:each in="${accessCardInstance?.assignments?}" var="a">
-    <li><g:link controller="accessCardAssignment" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="accessCardAssignment" action="show" id="${a.id}">
+    	issued to ${a.person} on <g:formatDate date="${a.issueDate}" format="M/d/yyyy" />
+    	<g:if test="${a.returnDate}">
+    	, but
+    	<g:if test="${a.lost}">lost</g:if><g:else>returned</g:else> on
+    	<g:formatDate date="${a.returnDate}" format="M/d/yyyy" />
+    	</g:if>
+    </g:link></li>
 </g:each>
 </ul>
 <g:link controller="accessCardAssignment" action="create" params="['accessCard.id': accessCardInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'accessCardAssignment.label', default: 'AccessCardAssignment')])}</g:link>

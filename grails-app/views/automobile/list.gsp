@@ -3,16 +3,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'automobile.label', default: 'Automobile')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <style>
+        	body {
+        		font-size: 0.8em;
+        	}
+        	table tr th {
+        		border: thin black solid;
+        	}
+        	table {
+        		font-size: 0.8em;
+        	}
+        	h1 {
+        		margin-bottom: 0.1em;
+        	}
+        	h2 {
+        		margin-top: 0.1;
+        		margin-bottom: 0.1;
+        	}
+        </style>
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-        </div>
+		<img src="${resource(dir:'images',file:'BOHM.png')}" alt="BOHM" />
         <div class="body">
-            <h1>MN Climbing Coop - Car List</h1>
+            <h1>Minnesota Climbing Cooperative</h1>
+            <h2>Thorp Building - Suite 178 - Car List</h2>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>

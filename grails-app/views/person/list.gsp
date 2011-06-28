@@ -19,77 +19,74 @@
         <div class="body">
             <h1>
 			  MNCC Contacts
-			  <g:remoteField autocomplete="off" class="filterField" name="id" action="find" update="searchDiv" />
+			  <g:remoteField autocomplete="off" class="filterField" name="id" controller="person" action="find" update="searchDiv" />
 			</h1>
 			<h2>Members, Investors, Pass Holders and Potentials</h2>
 			<div id="searchDiv"></div>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-						   <th>Name</th>
-                           <g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}" />
-						   <th>Member</th>
-						   <th>Access</th>
-						   <th>Card</th>
-						   <th>Email</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${personInstanceList}" status="i" var="personInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="edit" id="${personInstance.id}">
-							  ${fieldValue(bean: personInstance, field: "fullName")}
-								</g:link></td>
-
-                            <td>${fieldValue(bean: personInstance, field: "lastName")}</td>
-
-                            <td>
-								<g:if test="${ !personInstance.memberships}">No</g:if>
-							  <g:each in="${personInstance.memberships}" status="j" var="membershipInstance">
-								  since <g:formatDate date="${membershipInstance.membershipFrom}" format="yyyy-MM-dd" />
-							  </g:each>
-							</td>
-
-							<td>
-							  <g:if test="${personInstance.activePass}">
-
-								${personInstance.activePass.accessType.name} pass <br/>
-								expires
-								<g:formatDate date="${personInstance.activePass.endDate}" format="yyyy-MM-dd" />
-								
-							  </g:if>
-							  <g:else>
-								None
-							  </g:else>
-							</td>
-
-							<td>
-							  <g:if test="${personInstance.accessCardAssignment}">
-
-								${personInstance.accessCardAssignment.accessCard.label}
-								<br/> issued
-								<g:formatDate date="${personInstance.accessCardAssignment.issueDate}" format="yyyy-MM-dd" />
-
-							  </g:if>
-							  <g:else>
-								None
-							  </g:else>
-							</td>
-
-                            <td>${fieldValue(bean: personInstance, field: "emailAddress")}</td>
-
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
+			<div class="paginateButtons">
+                <g:paginate total="${personInstanceTotal}" />
             </div>
+            
+            <div class="element-list">
+            	<ul>
+            		<g:each in="${personInstanceList}" status="i" var="personInstance">
+            		<li>
+            			<g:link action="edit" id="${personInstance.id}">
+            			<!-- Name -->
+            			<div class="title">
+            				<span class="memberId">#${fieldValue(bean: personInstance, field: "id")}</span>:
+            				<span class="fullName">${fieldValue(bean: personInstance, field: "fullName")}</span><br/>
+            			</div>
+            			<!-- Membership -->
+            			<strong>Membership:</strong>
+            			<g:if test="${ ! personInstance.memberships }">
+            				<span class="flag">Not a Member</span>
+            			</g:if>
+            			<g:else>
+							<g:each in="${personInstance.memberships}" status="j" var="membershipInstance">
+							Member since <g:formatDate date="${membershipInstance.membershipFrom}" format="yyyy-MM-dd" />
+							</g:each>
+            			</g:else><br/>
+            			<!-- Access -->
+            			<strong>Access:</strong>
+            			<g:if test="${personInstance.activePass}">
+							${personInstance.activePass.accessType.name} pass
+							expires
+							<g:formatDate date="${personInstance.activePass.endDate}" format="yyyy-MM-dd" />
+						</g:if>
+						<g:else>
+							<span class="flag">None</span>
+						</g:else><br/>
+            			<!-- Card -->
+            			<strong>Card:</strong>
+	          			<g:if test="${personInstance.accessCardAssignment}">
+	          				<g:if test="${personInstance.accessCardAssignment.accessCard.facilityAssigned}">MNCC Card ${personInstance.accessCardAssignment.accessCard.label}</g:if>
+	          				<g:else>Personnal Card</g:else>
+							issued
+							<g:formatDate date="${personInstance.accessCardAssignment.issueDate}" format="yyyy-MM-dd" />
+						</g:if>
+						<g:else>
+							<span class="flag">None</span>
+						</g:else><br/>
+            			<!-- Email -->
+            			<strong>Email:</strong>
+            			<span class="email">
+            			<g:if test="${! personInstance.emailAddress }">
+            				<span class="flag">No email on file</span>
+            			</g:if>
+            			<g:else>
+            			${fieldValue(bean: personInstance, field: "emailAddress")}
+            			</g:else>
+            			</span>
+            			</g:link>
+            		</li>
+            		</g:each>
+            	</ul>
+            </div>
+			<div style="clear:both;"></div>
             <div class="paginateButtons">
                 <g:paginate total="${personInstanceTotal}" />
             </div>
