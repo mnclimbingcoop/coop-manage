@@ -14,6 +14,7 @@ import coop.mnclimbing.AccessCard
 import coop.mnclimbing.Role
 import coop.mnclimbing.User
 import coop.mnclimbing.UserRole
+import coop.mnclimbing.RobotPassword
 
 class BootStrap {
 
@@ -21,6 +22,12 @@ class BootStrap {
 
     def init = { servletContext ->
 
+		// Robot Password (for coop robot that updates door code data)
+		def robotPassword = RobotPassword.read(1)
+		if ( ! robotPassword ) {
+			robotPassword = new RobotPassword().save()
+		}
+		
 		// Gym Access Types
 		def accessDaily = AccessType.findByDuration(1)
 		if ( ! accessDaily ) {

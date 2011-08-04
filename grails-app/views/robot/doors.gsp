@@ -1,0 +1,1 @@
+<%@ page contentType="text/xml" %><hid:Doors action="UD"><hid:Door unlockInterval="6" heldInterval="37" extendedUnlockInterval="19" doorUnlockScheduleID="0" doorUnlockGuardTime="5" REXBehavior="UnlockDoor" electricalInterface="Wiegand" /></hid:Doors>
