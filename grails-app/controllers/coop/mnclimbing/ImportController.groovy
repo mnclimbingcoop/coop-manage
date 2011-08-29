@@ -7,6 +7,7 @@ class ImportController {
 	static def debug = true
 	
     def events = {
+		def robotPassword = RobotPassword.read(1)
 		def doorName = params.id
 		def ipAddress = request.getRemoteAddr() ?: request.getHeader("X-Forwarded-For") ?: request.getHeader("Client-IP")
 		def now = new Date()
@@ -15,57 +16,64 @@ class ImportController {
 		if (debug) { println "Door Name: ${doorName}" }
 		if (debug) { println "IP Address: ${ipAddress}" }
 
-		if (doorName && ipAddress) {
-			def xmlData
-			
-			try {
-				xmlData = request.XML
-			} catch (Exception ex) {
-				response << " ! Invalid XML:\n"
-				response << "	${ex.cause}\n"
-				response << "	${ex.message}\n"
-			}
-	
-			if (xmlData) {
+		if (params.secret == robotPassword.secret) {
+			if (doorName && ipAddress) {
 				
-				xmlData.event?.each{ e ->
+				def xmlData
+				
+				try {
+					xmlData = request.XML
+				} catch (Exception ex) {
+					response << " ! Invalid XML:\n"
+					response << "	${ex.cause}\n"
+					response << "	${ex.message}\n"
+				}
+		
+				if (xmlData) {
 					
-					records.total++
-					
-					Integer eventCode = e?.code?.toInteger() 
-					Date eventDate = Date.parse("yyyy-MM-dd hh:mm:ss", e?.date?.toString())
-					String eventSubject = e?.subject.toString()
-
-					if (eventCode && eventDate && eventSubject) {
+					xmlData.event?.each{ e ->
 						
-						def hidDoorEvent = HidDoorEvent.findByDoorNameAndEventDate(doorName, eventDate)
+						records.total++
 						
-						if (hidDoorEvent) {
-							records.existing++
-							//println "Event: ${hidDoorEvent} already exists."
-						} else {
-							hidDoorEvent = new HidDoorEvent(
-								uploadDate: now, 
-								ipAddress: ipAddress,
-								doorName: doorName,
-								eventCode: eventCode,
-								eventDate: eventDate,
-								eventSubject: eventSubject)
+						Integer eventCode = e?.code?.toInteger() 
+						Date eventDate = Date.parse("yyyy-MM-dd hh:mm:ss", e?.date?.toString())
+						String eventSubject = e?.subject.toString()
+	
+						if (eventCode && eventDate && eventSubject) {
 							
-							if ( hidDoorEvent.save() ) {
-								records.created++
-								//println "Saved door event from ${hidDoorEvent.eventDate}."
+							def hidDoorEvent = HidDoorEvent.findByDoorNameAndEventDate(doorName, eventDate)
+							
+							if (hidDoorEvent) {
+								records.existing++
+								//println "Event: ${hidDoorEvent} already exists."
 							} else {
-								records.errors++
-								//println "Error Saving event."
+								hidDoorEvent = new HidDoorEvent(
+									uploadDate: now, 
+									ipAddress: ipAddress,
+									doorName: doorName,
+									eventCode: eventCode,
+									eventDate: eventDate,
+									eventSubject: eventSubject)
+								
+								if ( hidDoorEvent.save() ) {
+									records.created++
+									//println "Saved door event from ${hidDoorEvent.eventDate}."
+								} else {
+									records.errors++
+									//println "Error Saving event."
+								}
 							}
 						}
 					}
 				}
+			} else {
+				println "Door Name not given from ip: ${ipAddress}"
 			}
+			
+			render records as XML
 		} else {
-			println "Door Name not passed: ${doorName}"
+			println "ACCESS DENIED. ${now} IP: ${ipAddress}, didn't pass the correct secret, but used: ${params.secret}"
+			render "ACCESS DENIED! Your are not a robot."			
 		}
-		render records as XML
 	}
 }

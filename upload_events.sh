@@ -3,11 +3,12 @@
 host="localhost:8443/coop-manage"
 #host="ajz.healthstudies.umn.edu/mncc"
 action="/import/events/"
+key="RANDOMLYGENERATEDKEY"
 
 file="${1}"
 door="${2}"
 
-url="https://${host}${action}${door}"
+url="https://${host}${action}${door}?key=${key}"
 
 if [ -f "${file}" ]; then
 
