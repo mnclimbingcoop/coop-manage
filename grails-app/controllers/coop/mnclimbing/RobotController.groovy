@@ -11,13 +11,13 @@ class RobotController {
 
 	private Boolean isRobot() {
 		def robotPassword = RobotPassword.read(1)
-		def ipAddress = request.remoteAddress
+		def ipAddress = request?.remoteAddress
 		def now = new Date()
 		
 		if (params.secret == robotPassword.secret) {
 			// secret is OK
 			if (robotPassword.ipAddressStartsWith) {
-				if (ipAddress.startsWith(robotPassword.ipAddressStartsWith)) {
+				if ( ( ! ipAddress ) || ipAddress?.startsWith(robotPassword?.ipAddressStartsWith) ) {
 					return true
 				} else {
 					println "ACCESS DENIED. ${now} IP: ${ipAddress}, didn't starts with ${robotPassword.ipAddressStartsWith}."
