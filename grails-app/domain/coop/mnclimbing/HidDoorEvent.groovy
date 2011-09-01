@@ -8,6 +8,7 @@ class HidDoorEvent {
 	Integer eventCode
 	Date eventDate
 	String eventSubject
+	Boolean imported = false
 	
 	String toString() {
 		"${eventCode},${eventDate},${eventSubject}"
@@ -20,5 +21,6 @@ class HidDoorEvent {
 		eventCode(nullable:true)
 		eventDate(index:'even_date_idx,door_date_idx')
 		eventSubject(nullable:true)
+		imported()
     }
 }

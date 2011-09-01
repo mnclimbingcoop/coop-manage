@@ -22,6 +22,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
         </div>
         <div class="body">
+        	<g:link action="importDoor">Import Sign-Ins from Coop Door Scans.</g:link><br/>
             <div style="float:right;">
             	<g:form>
 				<g:datePicker name="signInDate" precision="day" value="${signInInstance?.signInDate}" />
@@ -114,6 +115,6 @@
                     </tbody>
                 </table>
             </div>
-    </body>
         </div>
+    </body>
 </html>

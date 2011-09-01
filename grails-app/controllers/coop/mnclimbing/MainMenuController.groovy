@@ -38,6 +38,21 @@ class MainMenuController {
 		def countSoldPasses = 0
 		def countActivePasses = 0
 		def stockTotal = 0
+		
+		def hidDoorEventInstanceList = HidDoorEvent.createCriteria().list{
+			and {
+				eq('eventCode', 2020)
+			}
+			maxResults(15)
+			order('eventDate', 'desc')
+
+		}
+		
+
+				
+		params.max = Math.min(params.max ? params.int('max') : 30, 100)
+		[hidDoorEventInstanceList: HidDoorEvent.list(params), hidDoorEventInstanceTotal: HidDoorEvent.count()]
+
 
 		def now = new Date()
 
@@ -79,7 +94,8 @@ class MainMenuController {
 			, countSoldPasses: countSoldPasses
 			, countActivePasses: countActivePasses,
 			, stockTotal: stockTotal
-			, countExpiringPasses: countExpiringPasses ]
+			, countExpiringPasses: countExpiringPasses
+			, hidDoorEventInstanceList: hidDoorEventInstanceList ]
 
 	}
 }

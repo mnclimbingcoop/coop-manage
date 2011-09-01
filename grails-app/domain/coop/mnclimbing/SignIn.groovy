@@ -11,6 +11,8 @@ class SignIn {
 	
 	Date signInDate
 	
+	String source = "Sign-In Sheet"
+	
 	String toString() {
 		"${fullName} on ${signInDate}"
 	}

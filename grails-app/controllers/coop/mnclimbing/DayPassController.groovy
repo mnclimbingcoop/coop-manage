@@ -130,6 +130,10 @@ class DayPassController {
     def edit = {
         def dayPassInstance = DayPass.get(params.id)
 		
+		def currentYear
+		def jodaToday = new LocalDate()
+		def yearRange = (2010..jodaToday.year)
+		
 		def c = Person.createCriteria()
 		def sponsorList = c.list {
 			order("firstName")

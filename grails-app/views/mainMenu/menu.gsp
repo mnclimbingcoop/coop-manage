@@ -81,6 +81,16 @@
 			<dt>Passes Expiring: ${countExpiringPasses}</dt>
 			<dt>Outstanding Stock: &#36;${stockTotal}</dt>
 		  </dl>
+		  <br/>
+		  <h1><g:link controller="hidDoorEvent" action="list" params="${ [ sort:'eventDate', order:'desc' ] }">Recent Activity</g:link></h1>
+		  <dl>
+		  	<g:each var="e" in="${hidDoorEventInstanceList}">
+			<dt>
+				<g:formatDate date="${e.eventDate}" format="MM/dd HH:mm" />@${e.doorName}
+				<dd style="margin-left:2em;">${e.eventSubject}</dd>
+			</dt>
+		  	</g:each>
+		  </dl>
 		</div>
 		<div class="panelBtm"></div>
 	  </div>

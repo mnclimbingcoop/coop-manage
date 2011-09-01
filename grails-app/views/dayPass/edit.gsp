@@ -46,7 +46,7 @@
                                     <label for="passDate"><g:message code="dayPass.passDate.label" default="Pass Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: dayPassInstance, field: 'passDate', 'errors')}">
-                                    <g:datePicker name="passDate" precision="day" value="${dayPassInstance?.passDate}"  />
+                                    <g:datePicker name="passDate" precision="day" value="${dayPassInstance?.passDate}" years="${yearRange}" />
                                 </td>
                             </tr>
                         
@@ -100,7 +100,7 @@
                                     <label for="paymentDate"><g:message code="dayPass.paymentDate.label" default="Payment Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: dayPassInstance, field: 'paymentDate', 'errors')}">
-                                    <g:datePicker name="paymentDate" precision="day" value="${dayPassInstance?.paymentDate}"  />
+                                    <g:datePicker name="paymentDate" precision="day" value="${dayPassInstance?.paymentDate}" years="${yearRange}" />
                                 </td>
                             </tr>
                         
