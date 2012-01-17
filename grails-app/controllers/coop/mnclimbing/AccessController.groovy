@@ -92,15 +92,19 @@ class AccessController {
 
 		def c = Access.createCriteria()
 		def now = new Date()
+		
+		def lastMonth = now - 31
 
 		def accessInstanceList = c.list{
 			lt("endDate", now)
+			order("endDate", "desc")
 		}
 
 		def accessInstanceTotal = Access.count()
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
-			, accessInstanceTotal: accessInstanceTotal] )
+			, accessInstanceTotal: accessInstanceTotal
+			, lastMonth: lastMonth ] )
 
 	}
 
