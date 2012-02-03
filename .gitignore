@@ -5,4 +5,5 @@ events_Coop_20110824-19-30-58.csv
 events_External_20110824-19-40-50.csv
 get_backupbob_xml.sh
 mncc-2*.dump.gz
-
+stacktrace.log
+mncc.war
