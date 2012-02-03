@@ -7,3 +7,6 @@ get_backupbob_xml.sh
 mncc-2*.dump.gz
 stacktrace.log
 mncc.war
+*.sh
+*.dump
+*.swp

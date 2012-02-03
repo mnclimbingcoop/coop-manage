@@ -20,7 +20,7 @@ class AccessCard {
 
     static constraints = {
 		facilityCode(nullable:true)
-		cardIdentifier(unique:true)
+		cardIdentifier(unique:'facilityCode')
 		facilityAssigned()
 		label(nullable:true)
 		lost()

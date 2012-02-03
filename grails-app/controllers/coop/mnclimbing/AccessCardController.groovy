@@ -80,6 +80,46 @@ class AccessCardController {
 			, accessCardInstanceTotal: accessCardInstanceTotal ]
 	}
 
+	def createRange = {
+		def accessCardInstance = new AccessCard()
+		accessCardInstance.properties = params
+		return [accessCardInstance: accessCardInstance]
+	}
+
+	def saveRange = {
+		def cardIdentifierStart = params.cardIdentifierStart.toInteger()
+		def cardIdentifierEnd = params.cardIdentifierEnd.toInteger()
+		def cardsCreated = 0
+
+		log.info "Adding Range of Cards: ${cardIdentifierStart} -> ${cardIdentifierEnd}."
+		if (cardIdentifierStart <= cardIdentifierEnd) {
+			def cardIdentifier = cardIdentifierStart
+			while (cardIdentifier <= cardIdentifierEnd) {
+
+				def accessCardInstance = new AccessCard(params)
+				accessCardInstance.cardIdentifier = cardIdentifier
+				accessCardInstance.label = cardIdentifier
+
+				println "Creating Card: ${accessCardInstance}."
+
+				if (accessCardInstance.save(flush: true)) {
+					cardsCreated++
+					log.info "Saved Card: ${accessCardInstance}."
+				}
+				cardIdentifier++
+			}
+			if (cardsCreated > 0) {
+				flash.message = "Created ${cardsCreated} access cards."
+				redirect(action: "list")
+			} else {
+				render(view: "create", model: [accessCardInstance: accessCardInstance])
+			}
+		} else {
+			flash.message = "Please enter a start and end range for the card identifier"
+			redirect(action: "createRange")
+		}
+	}
+
 	def create = {
 		def accessCardInstance = new AccessCard()
 		accessCardInstance.properties = params
