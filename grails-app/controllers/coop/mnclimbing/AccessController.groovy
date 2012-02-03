@@ -92,15 +92,18 @@ class AccessController {
 
 		def c = Access.createCriteria()
 		def now = new Date()
+		def endThreshold = now - 31
 
 		def accessInstanceList = c.list{
 			lt("endDate", now)
+			order("endDate","desc")
 		}
 
 		def accessInstanceTotal = Access.count()
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
-			, accessInstanceTotal: accessInstanceTotal] )
+			, accessInstanceTotal: accessInstanceTotal
+			, endThreshold: endThreshold] )
 
 	}
 
@@ -111,22 +114,24 @@ class AccessController {
 		def c = Access.createCriteria()
 		def now = new Date()
 
-		def later = new Date()
+		def endThreshold = new Date()
 		// 31 days from now
-		later = later + 31
+		endThreshold = endThreshold + 31
 
 		// starts before today, but expires in 31 days
 		def accessInstanceList = c.list{
 			and {
 				lt("startDate", now)
-				lt("endDate", later)
+				lt("endDate", endThreshold)
 			}
+			order("endDate","desc")
 		}
 
 		def accessInstanceTotal = Access.count()
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
-			, accessInstanceTotal: accessInstanceTotal] )
+			, accessInstanceTotal: accessInstanceTotal 
+			, endThreshold: endThreshold] )
 
 	}
 

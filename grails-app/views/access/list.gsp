@@ -35,11 +35,9 @@
 
                             <th>Owner</th>
 
+                            <th>Email</th>
+
                             <g:sortableColumn property="amount" title="${message(code: 'access.amount.label', default: 'Amount')}" />
-                        
-                            <g:sortableColumn property="paymentDate" title="${message(code: 'access.paymentDate.label', default: 'Payment Date')}" />
-                        
-                            <g:sortableColumn property="accessDuration" title="${message(code: 'access.accessDuration.label', default: 'Duration')}" />
                         
                             <th><g:message code="access.accessType.label" default="Type" /></th>
                         
@@ -56,11 +54,9 @@
                         
                             <td>${accessInstance.person.fullName}</td>
 
+							<td>${accessInstance.person.emailAddress}</td>
+
                             <td>&#36;${fieldValue(bean: accessInstance, field: "amount")}</td>
-                        
-                            <td><g:formatDate date="${accessInstance.paymentDate}" format="yyyy-MM-dd" /></td>
-                        
-                            <td>${fieldValue(bean: accessInstance, field: "accessDuration")}</td>
                         
                             <td>${fieldValue(bean: accessInstance, field: "accessType")}</td>
                         
