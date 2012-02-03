@@ -104,7 +104,7 @@ class AccessController {
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
 			, accessInstanceTotal: accessInstanceTotal
-			, endThreshold: endThreshold]
+			, endThreshold: endThreshold
 			, lastMonth: lastMonth ] )
 	}
 
