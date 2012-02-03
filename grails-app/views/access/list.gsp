@@ -61,7 +61,12 @@
                             <td>${fieldValue(bean: accessInstance, field: "accessType")}</td>
                         
                             <td><g:formatDate date="${accessInstance.startDate}" format="yyyy-MM-dd" /></td>
-                            <td><g:formatDate date="${accessInstance.endDate}" format="yyyy-MM-dd" /></td>
+                            <g:if test="${lastMonth && lastMonth < accessInstance.endDate}">
+                            	<td style="background-color: pink;"><g:formatDate date="${accessInstance.endDate}" format="yyyy-MM-dd" /></td>
+                            </g:if>
+                            <g:else>
+                            	<td><g:formatDate date="${accessInstance.endDate}" format="yyyy-MM-dd" /></td>
+                            </g:else>
                         
                         </tr>
                     </g:each>
