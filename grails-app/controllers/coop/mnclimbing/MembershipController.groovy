@@ -2,15 +2,16 @@ package coop.mnclimbing
 
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_BOARD'])
 class MembershipController {
 
     static allowedMethods = [ save: "POST", update: "POST", delete: "POST" ]
 
+	@Secured(['ROLE_BOARD'])
     def index = {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_BOARD'])
     def list = {
 		// Figure out total sales
 		def membershipSalesTotal = 0
@@ -23,7 +24,57 @@ class MembershipController {
         [membershipInstanceList: Membership.list(params)
 			, membershipSalesTotal: membershipSalesTotal ]
     }
+	
+	@Secured(['ROLE_BOARD','ROLE_STAFF'])
+	def find = {
 
+		def searchString = params.id
+
+		if ( ! searchString ) {
+			searchString = params.value
+		}
+
+		def c = Person.createCriteria()
+
+		Long idSearch = 0
+		try {
+			idSearch = searchString.toLong()
+		} catch (Exception ex) {
+			idSearch = -1
+		}
+
+		def personInstanceList = []
+
+		if ( searchString ) {
+			personInstanceList = c.list{
+				and {
+					or {
+						ilike("firstName", "%${searchString}%")
+						ilike("lastName", "%${searchString}%")
+						like("phoneNumber", "${searchString}")
+						idEq(idSearch)
+					}
+					memberships {
+						and {
+							isNull("membershipTo")
+							type {
+								eq("name", "lifetime")
+							}
+						}
+					}
+				}
+				maxResults(20)
+			}
+		}
+
+		def personInstanceTotal = personInstanceList.size()
+
+		[personInstanceList: personInstanceList
+			, personInstanceTotal: personInstanceTotal ]
+
+	}
+
+	@Secured(['ROLE_BOARD'])
 	def missing = {
 
 		def personInstanceList = Person.list()
@@ -50,6 +101,7 @@ class MembershipController {
 
 	}
 
+	@Secured(['ROLE_BOARD'])
     def create = {
 
         def membershipInstance = new Membership()
@@ -70,6 +122,7 @@ class MembershipController {
         return [membershipInstance: membershipInstance]
     }
 
+	@Secured(['ROLE_BOARD'])
     def save = {
         def membershipInstance = new Membership(params)
 		membershipInstance.memberId = ""
@@ -98,6 +151,7 @@ class MembershipController {
         }
     }
 
+	@Secured(['ROLE_BOARD'])
     def show = {
         def membershipInstance = Membership.get(params.id)
         if (!membershipInstance) {
@@ -109,6 +163,7 @@ class MembershipController {
         }
     }
 
+	@Secured(['ROLE_BOARD'])
     def edit = {
         def membershipInstance = Membership.get(params.id)
         if (!membershipInstance) {
@@ -120,6 +175,7 @@ class MembershipController {
         }
     }
 
+	@Secured(['ROLE_BOARD'])
     def update = {
         def membershipInstance = Membership.get(params.id)
         if (membershipInstance) {
@@ -150,6 +206,7 @@ class MembershipController {
         }
     }
 
+	@Secured(['ROLE_BOARD'])
     def delete = {
         def membershipInstance = Membership.get(params.id)
         if (membershipInstance) {

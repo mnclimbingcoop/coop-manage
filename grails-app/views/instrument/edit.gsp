@@ -75,6 +75,15 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                    <label for="daysValidFor">How many days is this valid for? (blank = forever)</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: instrumentInstance, field: 'daysValidFor', 'errors')}">
+                                    <g:textField name="daysValidFor" value="${fieldValue(bean: instrumentInstance, field: 'daysValidFor')}" />
+                                </td>
+                            </tr>  
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                   <label for="obsoletionDate"><g:message code="instrument.obsoletionDate.label" default="When does this become obsolete?" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: instrumentInstance, field: 'obsoletionDate', 'errors')}">

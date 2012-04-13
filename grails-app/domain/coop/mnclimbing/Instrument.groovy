@@ -9,6 +9,7 @@ class Instrument {
 	Date versionDate = new Date()
 	Date obsoletionDate
 	Boolean required = false
+	Integer daysValidFor
 
 	static transients = ['obsolete']
 	
@@ -36,5 +37,6 @@ class Instrument {
 		versionDate(nullable:true)
 		required()
 		obsoletionDate(nullable:true)
+		daysValidFor(nullable:true)
     }
 }

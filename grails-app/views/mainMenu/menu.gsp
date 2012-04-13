@@ -76,11 +76,14 @@
 		  <h1>Notifications</h1>
 		  <dl>
 			<dt>Members: ${countMembers}</dt>
+			<sec:ifAnyGranted roles="ROLE_BOARD">
 			<dt>Sold Passes: ${countSoldPasses}</dt>
 			<dt>Active Passes: ${countActivePasses}</dt>
 			<dt>Passes Expiring: ${countExpiringPasses}</dt>
 			<dt>Outstanding Stock: &#36;${stockTotal}</dt>
+			</sec:ifAnyGranted>
 		  </dl>
+		  <sec:ifAnyGranted roles="ROLE_BOARD">
 		  <br/>
 		  <h1><g:link controller="hidDoorEvent" action="list" params="${ [ sort:'eventDate', order:'desc' ] }">Recent Activity</g:link></h1>
 		  <dl>
@@ -91,19 +94,26 @@
 			</dt>
 		  	</g:each>
 		  </dl>
+		  </sec:ifAnyGranted>
 		</div>
 		<div class="panelBtm"></div>
 	  </div>
 	</div>
 	<div id="pageBody">
 	  <h1>
-	  	Minnesota Climbing Cooperative
+		  Cooperative Management Site
+		<sec:ifAnyGranted roles="ROLE_BOARD">
 	  	<g:remoteField autocomplete="off" class="filterField" name="id" controller="person" action="find" update="searchDiv" />
+		</sec:ifAnyGranted>
+		<sec:ifNotGranted roles="ROLE_BOARD">
+	  	<g:remoteField autocomplete="off" class="filterField" name="id" controller="membership" action="find" update="searchDiv" />
+		</sec:ifNotGranted>
 	  </h1>
 	  <div id="searchDiv"></div>
 	  <div id="logoutLink"><g:link controller="logout" action="index" style="color:#FAA;">Logout</g:link></div>
 	  <div id="mainMenu" class="ui-widget ui-widget-content ui-corner-all">
 
+	  <sec:ifAnyGranted roles="ROLE_BOARD">
 		<h2>Enter / Update Data</h2>
 		<ul>
 		  <li>
@@ -128,10 +138,16 @@
 		  	<g:link controller="purchase" action="list">Enter Purchases</g:link>
 		  </li>
 		</ul>
+	  </sec:ifAnyGranted>
 
 
 		<h2>Membership Reports</h2>
 		<ul>
+		  <li>
+		  To find a member, use the search box in the upper right hand of the page.
+		  <br/>You can search on name, phone number, or Member ID number.
+		  </li>
+		  <sec:ifAnyGranted roles="ROLE_BOARD">
 		  <li>
 			<g:link controller="membership" action="list">Members</g:link>
 		  </li>
@@ -143,8 +159,10 @@
 		  <li>
 			<g:link controller="access" action="missing">Members without an Access Pass</g:link>
 		  </li>
+		  </sec:ifAnyGranted>
 		</ul>
 
+	    <sec:ifAnyGranted roles="ROLE_BOARD">
 		<h2>Access Reports</h2>
 		<ul>
 		  <li>
@@ -217,6 +235,7 @@
 		  <g:link controller="hid" action="buildBob">Download script to create backup BOB from XML file</g:link> (makes, backupxml.bob)
 		  </li>
 		</ul>
+		</sec:ifAnyGranted>
 
 		<h2>Door Control (only works at the coop)</h2>
 		<ul>

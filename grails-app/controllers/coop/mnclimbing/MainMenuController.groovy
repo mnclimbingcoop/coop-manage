@@ -31,7 +31,7 @@ class MainMenuController {
 	def mobile = {
 	}
 	
-	@Secured(['ROLE_BOARD'])
+	@Secured(['ROLE_BOARD', 'ROLE_STAFF'])
     def menu = {
 
 		def countMembers = 0

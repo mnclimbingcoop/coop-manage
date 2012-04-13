@@ -2,15 +2,16 @@ package coop.mnclimbing
 
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_BOARD'])
 class PersonController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	@Secured(['ROLE_BOARD'])
     def index = {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_BOARD'])
     def list = {
 
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
@@ -29,6 +30,7 @@ class PersonController {
 			, personInstanceTotal: personInstanceTotal ]
     }
 
+	@Secured(['ROLE_BOARD'])
     def create = {
         def personInstance = new Person()
 		def addressInstance = new Address()
@@ -38,8 +40,10 @@ class PersonController {
         return [personInstance: personInstance, addressInstance: addressInstance]
     }
 
+	@Secured(['ROLE_BOARD'])
 	def form = {}
 
+	@Secured(['ROLE_BOARD'])
 	def find = {
 
 		def searchString = params.id
@@ -69,6 +73,7 @@ class PersonController {
 
 	}
 	
+	@Secured(['ROLE_BOARD'])
     def save = {
 
 		// println "PersonController.save:params:: ${params}"
@@ -120,11 +125,40 @@ class PersonController {
         }
     }
 
+	@Secured(['ROLE_BOARD','ROLE_STAFF'])
     def show = {
 
-		redirect(action: "edit", params: params)
+		def now = new Date()
+        def personInstance = Person.get(params.id)
+		
+		//List of instruments not yet received
+		def c = Instrument.createCriteria()
+		def instrumentInstanceList = c.list{
+			and {
+				or {
+					isNull("obsoletionDate")
+					gt("obsoletionDate", now)
+				}
+				eq("required", true)
+			}
+		}
+		
+		personInstance.forms.each{
+			if ( ( it.incoming ) && ( instrumentInstanceList.contains( it.instrument ) ) ) {
+				instrumentInstanceList.remove(it.instrument)
+			}
+		}
+
+        if (!personInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])}"
+            redirect(controller:"mainMenu", action: "menu")
+        } else {
+            return [personInstance: personInstance, 
+				instrumentInstanceList: instrumentInstanceList ]
+        }
     }
 
+	@Secured(['ROLE_BOARD'])
     def edit = {
 		def now = new Date()
 		
@@ -153,14 +187,14 @@ class PersonController {
         if (!personInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])}"
             redirect(action: "list")
-        }
-        else {
+        } else {
             return [personInstance: personInstance, 
 				addressInstance: addressInstance,
 				instrumentInstanceList: instrumentInstanceList ]
         }
     }
 
+	@Secured(['ROLE_BOARD'])
     def update = {
         def personInstance = Person.get(params.id)
 
@@ -212,6 +246,7 @@ class PersonController {
 		}
 	}
 
+	@Secured(['ROLE_BOARD'])
 	def delete = {
 		def personInstance = Person.get(params.id)
 		if (personInstance) {

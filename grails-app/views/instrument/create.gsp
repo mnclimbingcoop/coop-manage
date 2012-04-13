@@ -70,6 +70,15 @@
                                     <g:checkBox name="required" value="${instrumentInstance?.required}" />
                                 </td>
                             </tr>  
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="daysValidFor">How many days is this valid for? (blank = forever)</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: instrumentInstance, field: 'daysValidFor', 'errors')}">
+                                    <g:textField name="daysValidFor" value="${fieldValue(bean: instrumentInstance, field: 'daysValidFor')}" />
+                                </td>
+                            </tr>  
                         
                         </tbody>
                     </table>

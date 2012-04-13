@@ -51,6 +51,17 @@
                             
                             <td valign="top" class="value"><g:if test="${instrumentInstance.required}">Yes</g:if><g:else>No</g:else> </td>
                         </tr>
+
+                        <tr class="prop">
+							<td valign="top" class="value">
+							<g:if test="${instrumentInstance.daysValidFor}">
+								This form is valid for ${instrumentInstance.daysValidFor} days
+							</g:if>
+							<g:else>
+								This form does not expire
+							</g:else>
+							</td>
+                        </tr>
                                         
                     </tbody>
                 </table>
