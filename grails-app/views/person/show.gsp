@@ -49,6 +49,16 @@
                     
                     </tbody>
                 </table>
+
+			<h3>Key-Fobs and Key-Cards</h3>
+			<ul>
+			  <g:each var="c" in="${personInstance.cards}">
+				<li>
+					${c.accessCard}, issued on <g:formatDate date="${c.issueDate}" format="yyyy-MM-dd" />
+				</li>
+			  </g:each>
+			</ul>
+
 				<fieldset>
 					<legend>Forms</legend>
 
@@ -94,6 +104,18 @@
 						</g:each>
 					</ul>
 					</g:if>
+
+		  	<h3>Access Passes</h3>
+			<ul>
+			  <g:each var="a" in="${personInstance.passes}">
+				<li>
+${a.accessType.name} pass from 
+				<g:formatDate date="${a.startDate}" format="yyyy-MM-dd" />
+				to
+				<g:formatDate date="${a.endDate}" format="yyyy-MM-dd" />
+				</li>
+			  </g:each>
+			</ul>
 
 				</fieldset>
             </div>
