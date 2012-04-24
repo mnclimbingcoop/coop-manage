@@ -10,7 +10,7 @@ class AccessCard {
 
 	String toString() {
 		if (facilityAssigned) {
-			"MNCC Keyfob ID: ${label}"
+			"MNCC Keyfob: ${label} (HID#: ${cardIdentifier})"
 		} else {
 			"Personal Card #${cardIdentifier} (${label})"
 		}
