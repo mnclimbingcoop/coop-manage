@@ -21,7 +21,7 @@ Install Updates and Patches
 	reboot
 
 Install Required Software
-	sudo apt-get install openjdk-6-jdk apache2 libapache2-mod-jk tomcat6 tomcat6-admin libmysql-java ufw libtcnative-1 groovy
+	sudo apt-get install openjdk-6-jdk apache2 libapache2-mod-jk tomcat6 tomcat6-admin libmysql-java ufw libtcnative-1 groovy mysql-server git-core python-software-properties
 
 Configure Certificates
 ----------------------
@@ -147,4 +147,49 @@ Configure the firewall
 	sudo ufw allow proto tcp from any to any port 80
 	sudo ufw allow proto tcp from any to any port 443
 	sudo ufw enable
+
+Configure MySQL
+---------------
+
+Login to the MySQL server as root
+
+	mysql -u root -p
+
+Run the production create database commands listed at the top of
+the grails-app/conf/DataSource.groovy file.
+
+Install Grails
+--------------
+
+	sudo add-apt-repository ppa:groovy-dev/grails
+	sudo apt-get update
+	sudo apt-get install grails-1.3.7
+
+	#switch between versions
+	sudo update-alternatives --config grails
+
+Choose Grails 1.3.7
+
+Deploy the application
+----------------------
+
+Clone the git repository from github
+
+	git clone git://github.com/mnclimbingcoop/coop-manage.git
+
+Build the application from Grails using the following command
+
+	cd coop-manage
+	git checkout grails13
+	grails clean
+	grails compile
+	grails war mncc.war
+
+Copy the WAR file to the tomcat application server folder
+
+	sudo cp mncc.war /var/lib/tomcat6/webapps/
+
+MySQL Backups
+-------------
+
 

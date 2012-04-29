@@ -1,15 +1,20 @@
 /*
- * Run the following commands in MySQL to setup the connection
+ * Run the following commands in MySQL to setup the connection for development
  *
  
- CREATE DATABASE mncc;
  CREATE DATABASE mncc_devel;
- CREATE DATABASE mncc_test;
  
+ CREATE USER 'mncc-grails'@'localhost' IDENTIFIED BY 'mncc2maSqefoboeJSVudpbeDdqFx';
+ GRANT ALL ON mncc_devel.* TO 'mncc-grails'@'localhost';
+ FLUSH PRIVILEGES;
+
+ * Run the following on the production server to set up the MySQL databases
+
+ CREATE DATABASE mncc;
+ CREATE DATABASE mncc_test;
  CREATE USER 'mncc-grails'@'localhost' IDENTIFIED BY 'mncc2maSqefoboeJSVudpbeDdqFx';
  GRANT ALL ON mncc.* TO 'mncc-grails'@'localhost';
  GRANT ALL ON mncc_test.* TO 'mncc-grails'@'localhost';
- GRANT ALL ON mncc_devel.* TO 'mncc-grails'@'localhost';
  FLUSH PRIVILEGES;
 
  *
