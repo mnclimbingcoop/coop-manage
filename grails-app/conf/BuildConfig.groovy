@@ -29,6 +29,15 @@ grails.project.dependency.resolution = {
         runtime 'mysql:mysql-connector-java:5.1.18'
     }
 	plugins {
+		build ":tomcat:$grailsVersion"
+
+		runtime ":hibernate:$grailsVersion"
+		runtime ":jquery:1.7.1"
+
 		// compile ":cloud-foundry:1.2.1"
+		compile ":database-migration:1.0"
+		compile ":spring-security-core:1.2.7.3"
+		compile ":joda-time:1.0"
+
 	}
 }

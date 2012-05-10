@@ -192,4 +192,6 @@ Copy the WAR file to the tomcat application server folder
 MySQL Backups
 -------------
 
+Create the file /usr/local/bin/backup_mysql.sh
+
 
