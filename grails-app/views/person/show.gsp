@@ -28,8 +28,6 @@
                             <td valign="top" class="value"><h2>${fieldValue(bean: personInstance, field: "id")}</h2></td>
                         </tr>
                     
-                    
-                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="person.phoneNumber.label" default="Phone Number" /></td>
 							<td valign="top" class="value">${personInstance?.phoneNumber}</td>
@@ -116,8 +114,21 @@ ${a.accessType.name} pass from
 				</li>
 			  </g:each>
 			</ul>
+			</fieldset>
 
-				</fieldset>
+			<fieldset>
+				<legend>Visits</legend>
+				<div id="visitList">
+				<ul>
+					<g:each var="hid" in="${hidDoorEventInstanceList}">
+					<li>
+						<g:formatDate date="${hid.eventDate}" format="yyyy-MM-dd hh:mm" />
+						[${hid.eventCode}]
+					</li>
+					</g:each>
+				</ul>
+				</div>
+			</fieldset>
             </div>
 			<sec:ifAnyGranted roles="ROLE_BOARD">
             <div class="buttons">

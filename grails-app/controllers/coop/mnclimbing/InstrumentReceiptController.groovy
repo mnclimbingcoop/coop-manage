@@ -38,6 +38,7 @@ class InstrumentReceiptController {
 			}
 		}
 		
+		/*
 		if (params?.person?.id) {
 			def personInstance = Person.read(params?.person?.id)
 			personInstance.forms.each{
@@ -45,7 +46,7 @@ class InstrumentReceiptController {
 					instrumentInstanceList.remove(it.instrument)
 				}
 			}
-		}
+		}*/
 		
         instrumentReceiptInstance.properties = params
 		

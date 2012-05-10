@@ -39,5 +39,6 @@ grails.project.dependency.resolution = {
 		compile ":spring-security-core:1.2.7.3"
 		compile ":joda-time:1.0"
 
+		compile ":mail:1.0"
 	}
 }

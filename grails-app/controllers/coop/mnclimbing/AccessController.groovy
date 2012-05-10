@@ -110,17 +110,48 @@ class AccessController {
 
 	def expiring = {
 
+		def now = new Date()
+		// 31 days from now
+		def endThreshold = now + 31
+		def sevenDays = now + 7
+		def twoWeeks = now + 30
+
+		def monthPass = AccessType.findByDuration(1)
+
+		/*
+			Business Rules for Expiring Pass notifications:
+
+			* Monthly Pass Holders: One notice, 7 days before
+			* Quarterly, Bi-Annual, and Annual Passes: 14 days before
+			* Record notifications all sent, and when.
+
+			Send email through Gmail's servers
+			Send email from:
+				noreply@mnclimbingcoop.com
+
+		*/
+
+		def accessNoticeInstanceList = Access.createCriteria().list{
+			or {
+				and {
+					accessType { idEq(monthPass.id) }
+					lt("startDate", now)
+					gt("endDate", now)
+					lt("endDate", sevenDays)
+				}
+				and {
+					accessType { ne('id', monthPass.id) }
+					lt("startDate", now)
+					gt("endDate", now)
+					lt("endDate", twoWeeks)
+				}
+			}	
+		}
+
 		flash.message = "Expiring Access Passes"
 
-		def c = Access.createCriteria()
-		def now = new Date()
-
-		def endThreshold = new Date()
-		// 31 days from now
-		endThreshold = endThreshold + 31
-
 		// starts before today, but expires in 31 days
-		def accessInstanceList = c.list{
+		def accessInstanceList = Access.createCriteria().list{
 			and {
 				lt("startDate", now)
 				lt("endDate", endThreshold)
@@ -131,6 +162,7 @@ class AccessController {
 		def accessInstanceTotal = Access.count()
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
+			, accessNoticeInstanceList: accessNoticeInstanceList
 			, accessInstanceTotal: accessInstanceTotal 
 			, endThreshold: endThreshold] )
 

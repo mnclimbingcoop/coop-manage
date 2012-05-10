@@ -372,3 +372,8 @@ div.element-list .flag {
 fieldset table {
 	border: none;
 }
+
+div#visitList {
+	max-height: 10em;
+	overflow: auto;
+}

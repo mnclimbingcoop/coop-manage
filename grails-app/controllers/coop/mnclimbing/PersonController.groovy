@@ -131,6 +131,15 @@ class PersonController {
 		def now = new Date()
         def personInstance = Person.get(params.id)
 		
+		def hidDoorEventInstanceList = HidDoorEvent.createCriteria().list{
+			or {
+				ilike('eventSubject', personInstance.fullName)
+				ilike('eventSubject', "${personInstance.firstName}% ${personInstance.lastName}")
+			}
+			order 'eventDate', 'desc'
+			maxResults(100)
+		}
+
 		//List of instruments not yet received
 		def c = Instrument.createCriteria()
 		def instrumentInstanceList = c.list{
@@ -154,6 +163,7 @@ class PersonController {
             redirect(controller:"mainMenu", action: "menu")
         } else {
             return [personInstance: personInstance, 
+				hidDoorEventInstanceList: hidDoorEventInstanceList,
 				instrumentInstanceList: instrumentInstanceList ]
         }
     }
