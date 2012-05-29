@@ -6,6 +6,8 @@ class PersonController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	def appTuningService
+
 	@Secured(['ROLE_BOARD'])
     def index = {
         redirect(action: "list", params: params)
@@ -77,6 +79,9 @@ class PersonController {
     def save = {
 
 		// println "PersonController.save:params:: ${params}"
+
+		// Flush the memory first
+		appTuningService.cleanUpGorm()
 
 		// Create new person and address
         def personInstance = new Person(params)
