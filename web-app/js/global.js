@@ -6,3 +6,10 @@ $(document).ready(function(){
 		});
 	});
 });
+
+function sendEmails(callingElement) {
+	$('#spinner').show();
+	$('#sent-expiring').html("Sending emails...");
+	$('a.sendEmailLink').parent('div').hide('slow');
+	return true;
+}

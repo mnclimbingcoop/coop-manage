@@ -11,3 +11,6 @@ mncc.war
 *.dump
 *.swp
 cloudfountry.com.token
+.DS_Store
+coop-manage-config-dev.groovy
+coop-manage-config-prod.groovy

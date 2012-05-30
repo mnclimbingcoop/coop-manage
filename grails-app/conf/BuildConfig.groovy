@@ -2,6 +2,7 @@ grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
+grails.project.war.file = "mncc.war"
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -41,7 +42,7 @@ grails.project.dependency.resolution = {
 		compile ":joda-time:1.4"
 
 		// App Info
-		compile ":app-info:0.4.3"
+		provided ":app-info:0.4.3"
 		compile ":dynamic-controller:0.3"
 		compile ":google-visualization:0.5.2"
 

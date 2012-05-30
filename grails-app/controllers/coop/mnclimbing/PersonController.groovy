@@ -71,8 +71,8 @@ class PersonController {
 		def personInstanceTotal = personInstanceList.size()
 
 		[personInstanceList: personInstanceList
-			, personInstanceTotal: personInstanceTotal ]
-
+			, personInstanceTotal: personInstanceTotal
+		    , searchString: searchString ]
 	}
 	
 	@Secured(['ROLE_BOARD'])

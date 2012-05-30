@@ -6,6 +6,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'access.label', default: 'Access')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+
     </head>
     <body>
         <div class="nav">
@@ -35,10 +36,10 @@
 			</ol>
 
 			<div class="send-expiring">
-				<g:link action="sendExpiring">Click here to send these notification emails</g:link>.<br/>
-				<em>Be patient after clicking this.  It takes about 5 seconds per email to send through
-				Google's email servers.</em>
-			</div>
+				<g:link action="sendExpiring" class="sendEmailLink" onclick="return sendEmails();">Click here to send up to 10 notification emails at once</g:link>.<br/>
+				<em>Be patient after clicking this.  It takes just under 10 seconds per email to send through
+					Google's email servers.</em>
+			</div><div id="sent-exipring">&nbsp;</div>
 
 			</g:if>
 

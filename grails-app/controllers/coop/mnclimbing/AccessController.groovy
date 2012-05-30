@@ -112,7 +112,8 @@ class AccessController {
 
 	def sendExpiring = {
 		// get the list of those who need to be notified...
-		def accessNoticeInstanceList = Access.needNotification.list()
+		//def accessNoticeInstanceList = Access.needNotification.list(max:8)
+		def accessNoticeInstanceList = Access.needNotification.list(max:1)
 		log.debug "Sending Messages..."
 
 		// send out the reminders
