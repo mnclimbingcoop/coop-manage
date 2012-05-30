@@ -42,9 +42,9 @@ grails.project.dependency.resolution = {
 		compile ":joda-time:1.4"
 
 		// App Info
-		provided ":app-info:0.4.3"
-		compile ":dynamic-controller:0.3"
-		compile ":google-visualization:0.5.2"
+		//provided ":app-info:0.4.3"
+		//compile ":dynamic-controller:0.3"
+		//compile ":google-visualization:0.5.2"
 
 		// Email
 		compile ":mail:1.0"
