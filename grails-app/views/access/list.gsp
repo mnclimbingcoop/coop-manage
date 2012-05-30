@@ -33,23 +33,15 @@
 				${pass.accessType} pass expiring on <g:formatDate date="${pass.endDate}" format="MMMM, d" /></li>
 				</g:each>
 			</ol>
-			<textarea style="font-size:0.8em;width:40em;height:4em;"><g:each var="pass" in="${accessNoticeInstanceList}">${pass.person.fullName} &lt;${pass.person.emailAddress}&gt;, </g:each></textarea>
-			<h2>Please send then an email with the following text:</h2>
-			<p>Subject: <strong>Renew Your MNCC Access Pass</strong></p>
-			<p>Hi,<br/>
-			<br/><p/>
-			<p>We noticed your MNCC 24/7 climbing access pass is expiring on ... .
-			Come on into the coop during open hours to renew your pass and fill out a new waiver if you
-			haven't in the past year.<br/>
-			<br/>
-			Have questions?  Drop us an email at info@mnclimbingcoop.com!<br/>
-			<br/>
-			</p>
-			<p>
-			Thanks,<br/>
-			The Minnesota Climbing Coop Volunteer Staff
-			</p>
+
+			<div class="send-expiring">
+				<g:link action="sendExpiring">Click here to send these notification emails</g:link>.<br/>
+				<em>Be patient after clicking this.  It takes about 5 seconds per email to send through
+				Google's email servers.</em>
+			</div>
+
 			</g:if>
+
 
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <div class="list">
@@ -69,6 +61,7 @@
                         
                             <g:sortableColumn property="startDate" title="${message(code: 'access.startDate.label', default: 'Start Date')}" />
                             <g:sortableColumn property="endDate" title="${message(code: 'access.endDate.label', default: 'End Date')}" />
+                            <g:sortableColumn property="expirationNotificationSent" title="Reminder Sent" />
                         
                         </tr>
                     </thead>
@@ -93,7 +86,8 @@
                             <g:else>
                             	<td><g:formatDate date="${accessInstance.endDate}" format="yyyy-MM-dd" /></td>
                             </g:else>
-                        
+
+							<td><g:formatDate date="${accessInstance.expirationNotificationSent}" format="yyyy-MM-dd" /></td>
                         </tr>
                     </g:each>
                     </tbody>

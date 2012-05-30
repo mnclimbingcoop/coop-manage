@@ -5,6 +5,9 @@ import grails.plugins.springsecurity.Secured
 class AccessController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+	// used to send out access notification messages
+	def messagingService
 	
     def index = {
         redirect(action: "list", params: params)
@@ -104,25 +107,37 @@ class AccessController {
 
 		render(view: "list", model: [accessInstanceList: accessInstanceList
 			, accessInstanceTotal: accessInstanceTotal
-			, endThreshold: endThreshold
 			, lastMonth: lastMonth ] )
+	}
+
+	def sendExpiring = {
+		// get the list of those who need to be notified...
+		def accessNoticeInstanceList = Access.needNotification.list()
+		log.debug "Sending Messages..."
+
+		// send out the reminders
+		messagingService.sendMonthlyPassReminders(accessNoticeInstanceList)
+		log.debug "...Sent."
+
+		// redirect back to the expiring page
+		redirect(action:'expiring')
 	}
 
 	def expiring = {
 
+		// People who's passes are expiring, but have not yet been sent a reminder
 		def accessNoticeInstanceList = Access.needNotification.list()
-
-		flash.message = "Expiring Access Passes"
 
 		// starts before today, but expires in 31 days
 		def accessInstanceList = Access.expringInTheNextMonth.list()
 
+		// Get the total number of access passes
 		def accessInstanceTotal = Access.count()
 
+		flash.message = "Expiring Access Passes"
 		render(view: "list", model: [accessInstanceList: accessInstanceList
 			, accessNoticeInstanceList: accessNoticeInstanceList
-			, accessInstanceTotal: accessInstanceTotal 
-			, endThreshold: endThreshold] )
+			, accessInstanceTotal: accessInstanceTotal ] )
 
 	}
 

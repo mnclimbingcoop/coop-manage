@@ -29,12 +29,12 @@
 			margin-right: auto;
 			}
 	</style>
+  	<g:javascript library="jquery" plugin="jquery"/>
 	<script type='text/javascript'>
-(function(){
-	document.forms['loginForm'].elements['j_username'].focus();
-})();
+		$(document).ready(function() {
+			$("input[name='j_username']").focus();
+		});
 	</script>
-
   </head>
   <body>
 	<div id="pageBody">

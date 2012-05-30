@@ -22,34 +22,10 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "mncc-grails"
-    password = "mncc2maSqefoboeJSVudpbeDdqFx"
-	dialect = org.hibernate.dialect.MySQLInnoDBDialect
+	dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 }
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = true
     cache.provider_class = 'net.sf.ehcache.hibernate.EhCacheProvider'
-}
-// environment specific settings
-environments {
-    development {
-        dataSource {
-            //dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-			dbCreate = "update"
-			url = "jdbc:mysql://localhost/mncc_devel?noAccessToProcedureBodies=true"
-        }
-    }
-    test {
-        dataSource {
-            dbCreate = "update"
-            url = "jdbc:mysql://localhost/mncc_test?noAccessToProcedureBodies=true"
-        }
-    }
-    production {
-        dataSource {
-            dbCreate = "update"
-		url = "jdbc:mysql://localhost/mncc?noAccessToProcedureBodies=true"
-        }
-    }
 }

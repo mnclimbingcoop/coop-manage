@@ -19,7 +19,7 @@ class Payment {
 		// default processing fee is $0.00
 		BigDecimal processingFee = 0.0
 		
-		if (paymentType.processFeeCharge) {
+		if (paymentType?.processFeeCharge) {
 			// processing fee is applied to the total amount
 			processingFee = amount * ( paymentType.processingRate / 100 )
 			processingFee += paymentType.processingFee ?: 0
@@ -47,8 +47,8 @@ class Payment {
 	static transients = [ 'processingFee', 'taxFee', 'amountAfterFees' ]
 
     static constraints = {
-		amount()
-		paymentType()
+		amount(nullable:true)
+		paymentType(nullable:true)
 		paymentDate()
 		transactionId(nullable:true)
 		taxable()

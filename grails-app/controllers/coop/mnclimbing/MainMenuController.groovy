@@ -70,7 +70,7 @@ class MainMenuController {
 			}
 		}
 
-		def countExpiringPasses = accessInstanceList.count()
+		def countExpiringPasses = accessInstanceList.count{it}
 
 
 		countMembers = Membership.count()

@@ -22,7 +22,10 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
+		// MySQL Database Connector
         runtime 'mysql:mysql-connector-java:5.1.18'
+		// GPars Parallelizaion Library
+		compile "org.codehaus.gpars:gpars:0.12"
     }
 	plugins {
 		build ":tomcat:$grailsVersion"
@@ -33,8 +36,34 @@ grails.project.dependency.resolution = {
 		// compile ":cloud-foundry:1.2.1"
 		compile ":database-migration:1.0"
 		compile ":spring-security-core:1.2.7.3"
-		compile ":joda-time:1.0"
 
+		// Joda Time
+		compile ":joda-time:1.4"
+
+		// App Info
+		compile ":app-info:0.4.3"
+		compile ":dynamic-controller:0.3"
+		compile ":google-visualization:0.5.2"
+
+		// Email
 		compile ":mail:1.0"
+
+		// Testing only
+		test ":code-coverage:1.2.5"
+		test ":codenarc:0.16.1"
+
 	}
 }
+
+
+codenarc.reports = {
+	JenkinsXmlReport('xml') {
+		outputFile = 'target/test-reports/CodeNarcReport.xml'
+		title = 'CodeNarc Report for Minnesota Climbing Coop Management Site'
+	}
+	JenkinsHtmlReport('html') {
+		outputFile = 'CodeNarcReport.html'
+		title = 'CodeNarc Report for Minnesota Climbing Coop Management Site'
+	}
+}
+codenarc.propertiesFile = 'grails-app/conf/codenarc.properties'

@@ -24,6 +24,15 @@ class Access extends Payment {
 
 	/** Named Queries */
 	static namedQueries = {
+
+		expired { ->
+			def now = new Date()
+			def accessInstanceList = c.list{
+				lt("endDate", now)
+				order("endDate", "desc")
+			}
+		}
+
 		/*
 			Business Rules for Expiring Pass notifications:
 
@@ -53,20 +62,30 @@ class Access extends Payment {
 			def twoWeeks = now + 30
 			def monthPass = AccessType.findByDuration(1)
 
-			or {
-				and {
-					accessType { idEq(monthPass.id) }
-					lt("startDate", now)
-					gt("endDate", now)
-					lt("endDate", sevenDays)
-				}
-				and {
-					accessType { ne('id', monthPass.id) }
-					lt("startDate", now)
-					gt("endDate", now)
-					lt("endDate", twoWeeks)
-				}
-			}	
+			and {
+				isNull("expirationNotificationSent")
+				or {
+					and {
+						accessType { idEq(monthPass.id) }
+						lt("startDate", now)
+						gt("endDate", now)
+						lt("endDate", sevenDays)
+					}
+					and {
+						accessType { ne('id', monthPass.id) }
+						lt("startDate", now)
+						gt("endDate", now)
+						lt("endDate", twoWeeks)
+					}
+				}	
+			}
 		}
+	}
+	static constraints = {
+		accessType()
+		startDate()
+		endDate()
+		expirationNotificationSent(nullable:true)
+		accessDuration()
 	}
 }

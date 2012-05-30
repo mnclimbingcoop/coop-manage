@@ -30,9 +30,9 @@ class Purchase {
 		merchant(nullable:true)
 		person(nullable:true)
 		purchaser(nullable:true)
-		shipping()
-		tax()
-		total()
+		shipping(nullable:true)
+		tax(nullable:true)
+		total(nullable:true)
 		paid(nullable:true)
 		comments(nullable:true)
     }

@@ -377,3 +377,19 @@ div#visitList {
 	max-height: 10em;
 	overflow: auto;
 }
+
+.send-expiring {
+	height: 50px;
+	padding-left: 53px;
+	padding-right: 5px;
+	padding-top: 16px;
+	background-color: white;
+	background-image: url(../images/round-orange-mail.png);
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+	vertical-align: middle;
+}
+
+.send-expiring:hover {
+	background-color: #DDD;
+}
