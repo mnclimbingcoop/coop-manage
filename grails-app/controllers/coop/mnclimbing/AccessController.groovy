@@ -20,10 +20,12 @@ class AccessController {
 
 		def accessInstanceList = Access.list()
 		accessInstanceList.each{ a ->
-			if ( a.paymentType.name == "PayPal") {
-				accessSalesTotal += (a.amount * 0.971)
-			} else {
-				accessSalesTotal += a.amount
+			if (a.amount) {
+				if ( a.paymentType.name == "PayPal") {
+					accessSalesTotal += (a.amount * 0.971)
+				} else {
+					accessSalesTotal += a.amount
+				}
 			}
 		}
 
@@ -39,17 +41,15 @@ class AccessController {
 
 	def missing = {
 
-		def c = Person.createCriteria()
 		// everyone with a membership
-		def personInstanceList = c.list{
+		def personInstanceList = Person.createCriteria().list{
 			memberships {
 				isNotNull("id")
 			}
 		}
 
 		// everyone with an access pass
-		c = Person.createCriteria()
-		def personAccessInstanceList = c.list{
+		def personAccessInstanceList = Person.createCriteria().list{
 			passes {
 				isNotNull("id")
 			}
@@ -62,8 +62,6 @@ class AccessController {
 			personInstanceTotal++
 		}
 
-		flash.message = "Members without an access pass"
-
 		return [ personInstanceList: personInstanceList
 			, personInstanceTotal: personInstanceTotal ]
 
@@ -72,10 +70,9 @@ class AccessController {
 	def active = {
 		flash.message = "Active Access Passes"
 
-		def c = Access.createCriteria()
 		def now = new Date()
 
-		def accessInstanceList = c.list{
+		def accessInstanceList = Access.createCriteria().list{
 			and {
 				lt("startDate", now)
 				gt("endDate", now)
@@ -93,12 +90,11 @@ class AccessController {
 
 		flash.message = "Expired Access Passes"
 
-		def c = Access.createCriteria()
 		def now = new Date()
 		def lastMonth = now - 31
 		def endThreshold = now - 31
 
-		def accessInstanceList = c.list{
+		def accessInstanceList = Access.createCriteria().list{
 			lt("endDate", now)
 			order("endDate", "desc")
 		}

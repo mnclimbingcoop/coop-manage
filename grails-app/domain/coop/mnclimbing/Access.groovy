@@ -22,6 +22,19 @@ class Access extends Payment {
 		accessDuration(min:0)
 	}
 
+	static transients = ['active', 'status']
+
+	Boolean isActive() {
+		def now = new Date()
+		if (startDate <= now && endDate > now) {
+			true
+		} else { false }
+	}
+
+	String getStatus() {
+		this.active ? 'active' : 'inactive'
+	}
+
 	/** Named Queries */
 	static namedQueries = {
 

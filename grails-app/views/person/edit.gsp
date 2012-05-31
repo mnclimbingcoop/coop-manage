@@ -101,7 +101,7 @@
 		  	<h3>Access Passes</h3>
 			<ul>
 			  <g:each var="a" in="${personInstance.passes}">
-				<li>
+			  <li class="access-pass-${a.status}">
 ${a.accessType.name} pass from 
 				<g:formatDate date="${a.startDate}" format="yyyy-MM-dd" />
 				to
@@ -117,7 +117,7 @@ ${a.accessType.name} pass from
 			<h3>Key-Fobs and Key-Cards</h3>
 			<ul>
 			  <g:each var="c" in="${personInstance.cards}">
-				<li>
+			    <li class="access-card-${c.status}">
 					${c.accessCard}, issued on <g:formatDate date="${c.issueDate}" format="yyyy-MM-dd" />
 				(<g:link controller="accessCardAssignment" action="edit" id="${c.id}">edit</g:link>)
 				</li>

@@ -19,6 +19,7 @@
 			  <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
+				<g:if test="${personInstanceList}">
                 <table>
                     <thead>
                         <tr>
@@ -71,6 +72,10 @@
                     </g:each>
                     </tbody>
                 </table>
+				</g:if><g:else>
+				<p>Good news.</p>
+				<h2>Everyone who has an active pass has an keyfob.</h2>
+				</g:else>
             </div>
             <p>&nbsp;</p>
         </div>

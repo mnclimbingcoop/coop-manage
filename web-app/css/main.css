@@ -393,3 +393,6 @@ div#visitList {
 .send-expiring:hover {
 	background-color: #DDD;
 }
+
+li.access-pass-inactive { color: #C99; }
+li.access-card-inactive { color: #C99; }
