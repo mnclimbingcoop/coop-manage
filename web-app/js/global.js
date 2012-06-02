@@ -13,3 +13,9 @@ function sendEmails(callingElement) {
 	$('a.sendEmailLink').parent('div').hide('slow');
 	return true;
 }
+
+$(function() {
+	$("#tabs").tabs();
+	$("input[name='id']").focus();		
+});
+  

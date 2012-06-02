@@ -194,10 +194,10 @@
 		<h2>Form Reports</h2>
 		<ul>
 		  <li>
-		  <g:link controller="instrument" action="show" id="1">Need to sign Membership Agreement</g:link>
+		  <g:link controller="instrument" action="due">Forms that need to be completed by coop members.</g:link>
 		  </li>
 		  <li>
-		  <g:link controller="instrument" action="show" id="2">Need to sign Gym Waiver</g:link>
+		  <g:link controller="instrument" action="list">All Forms used by the Coop</g:link>
 		  </li>
 		</ul>
 

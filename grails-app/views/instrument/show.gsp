@@ -96,7 +96,7 @@
 	            </div>
 			</g:if>
 			            
-            <g:if test="${instrumentInstance.required}">
+            <g:if test="${instrumentInstance.required && !instrumentInstance.obsolete}">
             	<div id="neededForms">
 	            	<h2>Forms Needed</h2>
 	            	<table>
