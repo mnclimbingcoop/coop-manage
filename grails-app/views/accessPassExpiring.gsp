@@ -1,19 +1,18 @@
 <g:if test="${accessInstance?.person?.emailAddress}">
-Hi there ${accessInstance.person},
+Hi ${accessInstance.person},
 
-We noticed your MNCC 24/7 climbing access pass is expiring on <g:formatDate date="${accessInstance.endDate}" format="MMMM d, yyyy" /> . Come on into the coop during open hours [1] to renew your pass and fill out a new waiver if you haven't in the past year.
+We noticed that your MNCC 24/7 climbing access pass would normally be expiring on <g:formatDate date="${accessInstance.endDate}" format="MMMM d, yyyy" />.
 
-If you wish, you can renew your access online at the following URL:
-http://www.mnclimbingcoop.com/climbing-pass
+In light of the COVID-19 pandemic, all Access Passes were frozen March 17 and will be extended for the length of time we are closed. 
 
-Have questions? Drop us an email at info@mnclimbingcoop.com !
+We understand that this crisis has financially impacted us all. We are thankful that we’re a volunteer-run organization that doesn’t have to make tough decisions with payroll. However, we still have expenses during this time—mainly rent.
 
-Thanks,
-The Minnesota Climbing Coop Volunteer Staff
+If you're willing and able, we need your continued support while we are closed. Please consider consider supporting our Renew, Waive, Donate campaign at https://www.mnclimbingcoop.com
 
-Don't want to be contacted at ${accessInstance?.person?.emailAddress}?  Let us know at info@mnclimbingcoop.com!  Thanks.
+If you have questions or would like to update your email address, send a note to info@mnclimbingcoop.com
 
-[1] Open Hours : http://www.mnclimbingcoop.com/open-hours
+Thank you for your support,
+Minnesota Climbing Co-op
 </g:if>
 <g:else>
 Hello MNCC Volunteer!
